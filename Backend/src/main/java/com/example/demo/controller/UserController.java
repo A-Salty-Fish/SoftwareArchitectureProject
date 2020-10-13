@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Map;
 @RestController
 public class UserController {
-    
+    /**
+     * 静态Mybatis成员
+     */
     static String resource = "mybatis-config.xml";
     static InputStream inputStream;
     static {
@@ -32,6 +34,12 @@ public class UserController {
     }
     static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     static SqlSession session = sqlSessionFactory.openSession();
+
+    /**
+     *
+     * @param req post请求body
+     * @return 用户实体
+     */
     User ReqToUser(HttpServletRequest req){
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
@@ -48,17 +56,12 @@ public class UserController {
         user.setAuthorLevel(authorLevel);
         return user;
     }
-    @RequestMapping("/test")
-    public User testMysql() throws IOException {
-        List<User> listUser = session.selectList("listUser");
-        return listUser.get(1);
-    }
-    @GetMapping(value = "/GetUserById/{id}")
-    @ResponseBody
-    public User GetUserById(@PathVariable("id") int id) {
-        User user = session.selectOne("getUser",id);
-        return user;
-    }
+
+    /**
+     *
+     * @param id 要删除的用户id
+     * @return
+     */
     @GetMapping(value = "/DeleteUserById/{id}")
     @ResponseBody
     public User DeleteUserById(@PathVariable("id") int id) {
@@ -71,6 +74,12 @@ public class UserController {
         }
         return null;
     }
+
+    /**
+     *
+     * @param req 添加用户的post请求body
+     * @return
+     */
     @PostMapping(value = "/AddUser")
     @ResponseBody
     public User AddUser(HttpServletRequest req){
@@ -79,6 +88,12 @@ public class UserController {
         session.commit();
         return user;
     }
+
+    /**
+     *
+     * @param req 修改用户的post请求body
+     * @return
+     */
     @PostMapping(value = "/UpdateUser")
     @ResponseBody
     public User UpdateUser(HttpServletRequest req){

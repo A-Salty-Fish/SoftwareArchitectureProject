@@ -11,7 +11,7 @@
         insert into user ( name ,headimg_url, faculty, school_num, author_level)
         values (#{name}, #{headImgUrl}, #{faculty} , #{schoolNum} ,#{AuthorLevel})
     </insert>
-    <delete id="deleteUser" parameterType="User">
+    <delete id="deleteUser" parameterType="_int">
         delete from user where id = #{id}
     </delete>
 
@@ -20,7 +20,7 @@
     </select>
 
     <update id="updateUser" parameterType="User">
-        update user set name=#{name}, headimg_url = #{headimg_url}, faculty = #{faculty},
+        update user set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},
         school_num = #{schoolNum}, author_level = #{AuthorLevel}
         where id=#{id}
     </update>

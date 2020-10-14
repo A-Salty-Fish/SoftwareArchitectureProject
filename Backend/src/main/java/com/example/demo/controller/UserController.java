@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @RestController
+@RequestMapping(value = "/user")
 public class UserController {
     /**
      * 静态Mybatis成员
@@ -57,6 +58,12 @@ public class UserController {
         return user;
     }
 
+    @GetMapping(value = "/GetUserById/{id}")
+    @ResponseBody
+    public User GetUserById(@PathVariable("id") int id) {
+        User user = session.selectOne("getUser",id);
+        return user;
+    }
     /**
      *
      * @param id 要删除的用户id

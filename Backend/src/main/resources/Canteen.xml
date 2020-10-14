@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.entity.Canteen">
+    <select id="listCanteen" resultType="Canteen">
+        select * from canteen
+    </select>
+
+    <insert id="addCanteen" parameterType= "Canteen">
+        insert into canteen ( name , position )
+        values (#{name}, #{position})
+    </insert>
+
+    <delete id="deleteCanteenById" parameterType="_int">
+        delete from canteen where id = #{id}
+    </delete>
+
+    <select id="getCanteenById" parameterType="_int" resultType="Canteen">
+        select * from canteen where id= #{id}
+    </select>
+
+<!--    <update id="updateUser" parameterType="Canteen">-->
+<!--        update canteen set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
+<!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
+<!--        where id=#{id}-->
+<!--    </update>-->
+</mapper>

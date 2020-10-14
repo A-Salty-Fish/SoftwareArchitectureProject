@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.entity.Comment">
+    <select id="listComment" resultType="Comment">
+        select * from comment
+    </select>
+
+    <insert id="addComment" parameterType= "Comment">
+        insert into comment ( content ,user_id, food_name,canteen,stars)
+        values (#{content}, #{userId}, #{foodName},#{canteen},#{stars})
+    </insert>
+
+    <delete id="deleteComment" parameterType="_int">
+        delete from comment where id = #{id}
+    </delete>
+
+    <select id="getComment" parameterType="_int" resultType="Comment">
+        select * from comment where id= #{id}
+    </select>
+
+    <!--    <update id="updateComment" parameterType="Food">-->
+    <!--        update comment set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
+    <!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
+    <!--        where id=#{id}-->
+    <!--    </update>-->
+</mapper>

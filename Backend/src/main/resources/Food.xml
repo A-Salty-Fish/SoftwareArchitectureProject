@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.entity.Food">
+    <select id="listFood" resultType="Food">
+        select * from food
+    </select>
+
+    <insert id="addFood" parameterType= "Food">
+        insert into food ( name ,img_url, canteen)
+        values (#{name}, #{imgUrl}, #{canteen})
+    </insert>
+
+    <delete id="deleteFood" parameterType="_int">
+        delete from food where id = #{id}
+    </delete>
+
+    <select id="getFood" parameterType="_int" resultType="Food">
+        select * from food where id= #{id}
+    </select>
+
+<!--    <update id="updateFood" parameterType="Food">-->
+<!--        update food set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
+<!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
+<!--        where id=#{id}-->
+<!--    </update>-->
+</mapper>

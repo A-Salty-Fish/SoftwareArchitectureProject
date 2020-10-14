@@ -21,6 +21,9 @@
     <!-- 映射文件 -->
     <mappers>
         <mapper resource="User.xml"/>
+        <mapper resource="Canteen.xml"/>
+        <mapper resource="Food.xml"/>
+        <mapper resource="Comment.xml"/>
     </mappers>
 
 </configuration>

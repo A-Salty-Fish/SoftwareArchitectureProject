@@ -51,6 +51,15 @@ public class CanteenController {
         return canteen;
     }
 
+    @PostMapping(value = "/UpdateCanteen")
+    @ResponseBody
+    public Canteen UpdateCanteen(HttpServletRequest req){
+        Canteen canteen = Canteen.ReqToCanteen(req);
+        session.update("updateCanteen",canteen);
+        session.commit();
+        return canteen;
+    }
+
     @GetMapping(value = "/GetCanteenPage/{CurrentPage}/{PageSize}")
     @ResponseBody
     public List<Canteen> GetCanteenPage(@PathVariable("CurrentPage") int CurrentPage,

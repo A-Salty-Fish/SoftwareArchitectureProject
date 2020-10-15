@@ -49,6 +49,15 @@ public class CommentController {
         return comment;
     }
 
+    @PostMapping(value = "/UpdateComment")
+    @ResponseBody
+    public Comment UpdateComment(HttpServletRequest req){
+        Comment comment = Comment.ReqToComment(req);
+        session.update("updateComment",comment);
+        session.commit();
+        return comment;
+    }
+
     @GetMapping(value = "/GetCommentPage/{CurrentPage}/{PageSize}")
     @ResponseBody
     public List<Comment> GetCommentPage(@PathVariable("CurrentPage") int CurrentPage,

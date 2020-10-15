@@ -47,6 +47,15 @@ public class FoodController {
         return food;
     }
 
+    @PostMapping(value = "/UpdateFood")
+    @ResponseBody
+    public Food UpdateFood(HttpServletRequest req){
+        Food food = Food.ReqToFood(req);
+        session.update("updateFood",food);
+        session.commit();
+        return food;
+    }
+
     @GetMapping(value = "/GetFoodPage/{CurrentPage}/{PageSize}")
     @ResponseBody
     public List<Food> GetFoodPage(@PathVariable("CurrentPage") int CurrentPage,
@@ -54,4 +63,5 @@ public class FoodController {
         List<Food> foodList = session.selectList("listFood");
         return SubPage.GetSubPage(foodList,CurrentPage,PageSize);
     }
+
 }

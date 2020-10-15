@@ -44,7 +44,7 @@ public class Food {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String imgUrl = req.getParameter("imgUrl");
-        String canteen = req.getParameter("Food");
+        String canteen = req.getParameter("canteen");
         Food food = new Food();
         food.setId(id);
         food.setName(name);

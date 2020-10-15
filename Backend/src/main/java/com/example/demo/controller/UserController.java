@@ -36,28 +36,6 @@ public class UserController {
     static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     static SqlSession session = sqlSessionFactory.openSession();
 
-    /**
-     *
-     * @param req post请求body
-     * @return 用户实体
-     */
-    User ReqToUser(HttpServletRequest req){
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        String headImgUrl = req.getParameter("headImgUrl");
-        String faculty = req.getParameter("faculty");
-        String schoolNum = req.getParameter("schoolNum");
-        int authorLevel = Integer.parseInt(req.getParameter("authorLevel"));
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setHeadImgUrl(headImgUrl);
-        user.setFaculty(faculty);
-        user.setSchoolNum(schoolNum);
-        user.setAuthorLevel(authorLevel);
-        return user;
-    }
-
     @GetMapping(value = "/GetUserById/{id}")
     @ResponseBody
     public User GetUserById(@PathVariable("id") int id) {
@@ -90,7 +68,7 @@ public class UserController {
     @PostMapping(value = "/AddUser")
     @ResponseBody
     public User AddUser(HttpServletRequest req){
-        User user = ReqToUser(req);
+        User user = User.ReqToUser(req);
         session.insert("addUser",user);
         session.commit();
         return user;
@@ -104,7 +82,7 @@ public class UserController {
     @PostMapping(value = "/UpdateUser")
     @ResponseBody
     public User UpdateUser(HttpServletRequest req){
-        User user = ReqToUser(req);
+        User user = User.ReqToUser(req);
         session.update("updateUser",user);
         session.commit();
         return user;

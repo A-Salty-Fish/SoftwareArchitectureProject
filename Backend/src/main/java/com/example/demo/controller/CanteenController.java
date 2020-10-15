@@ -30,17 +30,6 @@ public class CanteenController {
     static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     static SqlSession session = sqlSessionFactory.openSession();
 
-    Canteen ReqToCanteen(HttpServletRequest req){
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        String position = req.getParameter("position");
-        Canteen canteen = new Canteen();
-        canteen.setId(id);
-        canteen.setName(name);
-        canteen.setPosition(position);
-        return canteen;
-    }
-
     @GetMapping("/GetCanteenById/{id}")
     @ResponseBody
     public Canteen GetCanteenById(@PathVariable("id") int id){
@@ -61,7 +50,7 @@ public class CanteenController {
     @PostMapping(value = "/AddCanteen")
     @ResponseBody
     public Canteen AddCanteen(HttpServletRequest req){
-        Canteen canteen = ReqToCanteen(req);
+        Canteen canteen = Canteen.ReqToCanteen(req);
         session.insert("addCanteen",canteen);
         session.commit();
         return canteen;

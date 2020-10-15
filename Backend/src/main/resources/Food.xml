@@ -21,9 +21,8 @@
         select * from food where id= #{id}
     </select>
 
-<!--    <update id="updateFood" parameterType="Food">-->
-<!--        update food set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
-<!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
-<!--        where id=#{id}-->
-<!--    </update>-->
+    <update id="updateFood" parameterType="Food">
+        update food set name = #{name}, img_url = #{imgUrl}, canteen = #{canteen}
+        where id = #{id}
+    </update>
 </mapper>

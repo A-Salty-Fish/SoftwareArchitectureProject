@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.Imp.SubPage;
 import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.Canteen;
+import com.example.demo.entity.Food;
 import com.example.demo.entity.User;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.io.Resources;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/canteen")
@@ -26,6 +29,7 @@ public class CanteenController {
         Canteen canteen = session.selectOne("getCanteenById", id);
         return canteen;
     }
+
     @DeleteMapping("/DeleteCanteenById/{id}")
     @ResponseBody
     public Canteen DeleteCanteenById(@PathVariable("id") int id){
@@ -37,6 +41,7 @@ public class CanteenController {
         }
         return canteen;
     }
+
     @PostMapping(value = "/AddCanteen")
     @ResponseBody
     public Canteen AddCanteen(HttpServletRequest req){
@@ -44,5 +49,13 @@ public class CanteenController {
         session.insert("addCanteen",canteen);
         session.commit();
         return canteen;
+    }
+
+    @GetMapping(value = "/GetCanteenPage/{CurrentPage}/{PageSize}")
+    @ResponseBody
+    public List<Canteen> GetCanteenPage(@PathVariable("CurrentPage") int CurrentPage,
+                                  @PathVariable("PageSize") int PageSize){
+        List<Canteen> canteenList = session.selectList("listCanteen");
+        return SubPage.GetSubPage(canteenList,CurrentPage,PageSize);
     }
 }

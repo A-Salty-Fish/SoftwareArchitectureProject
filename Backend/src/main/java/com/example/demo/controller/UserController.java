@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.Imp.SubPage;
 import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.User;
 import io.swagger.annotations.Api;
@@ -63,5 +64,13 @@ public class UserController {
         session.update("updateUser",user);
         session.commit();
         return user;
+    }
+
+    @GetMapping(value = "/GetUserPage/{CurrentPage}/{PageSize}")
+    @ResponseBody
+    public List<User> GetUserPage(@PathVariable("CurrentPage") int CurrentPage,
+                                  @PathVariable("PageSize") int PageSize){
+        List<User> userList = session.selectList("listUser");
+        return SubPage.GetSubPage(userList,CurrentPage,PageSize);
     }
 }

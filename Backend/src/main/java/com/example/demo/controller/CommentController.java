@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.Imp.SubPage;
 import com.example.demo.config.SqlSessionFactoryUtil;
+import com.example.demo.entity.Canteen;
 import com.example.demo.entity.Comment;
 import com.example.demo.entity.Food;
 import org.apache.ibatis.io.Resources;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/comment")
@@ -44,5 +47,13 @@ public class CommentController {
             session.commit();
         }
         return comment;
+    }
+
+    @GetMapping(value = "/GetCommentPage/{CurrentPage}/{PageSize}")
+    @ResponseBody
+    public List<Comment> GetCommentPage(@PathVariable("CurrentPage") int CurrentPage,
+                                        @PathVariable("PageSize") int PageSize){
+        List<Comment> commentList = session.selectList("listComment");
+        return SubPage.GetSubPage(commentList,CurrentPage,PageSize);
     }
 }

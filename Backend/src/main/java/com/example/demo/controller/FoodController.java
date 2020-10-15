@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Imp.SubPage;
 import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.Canteen;
 import com.example.demo.entity.Food;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/food")
@@ -43,5 +45,13 @@ public class FoodController {
         session.delete("deleteFood",id);
         session.commit();
         return food;
+    }
+
+    @GetMapping(value = "/GetFoodPage/{CurrentPage}/{PageSize}")
+    @ResponseBody
+    public List<Food> GetFoodPage(@PathVariable("CurrentPage") int CurrentPage,
+                                  @PathVariable("PageSize") int PageSize){
+        List<Food> foodList = session.selectList("listFood");
+        return SubPage.GetSubPage(foodList,CurrentPage,PageSize);
     }
 }

@@ -45,4 +45,15 @@ public class CommentController {
         session.commit();
         return comment;
     }
+
+    @GetMapping(value = "/DeleteCommentById/{id}")
+    @ResponseBody
+    public Comment DeleteCommentById(@PathVariable("id") int id) {
+        Comment comment = session.selectOne("getComment",id);
+        if (comment != null){
+            session.delete("deleteComment",id);
+            session.commit();
+        }
+        return comment;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.Comment;
 import com.example.demo.entity.Food;
 import org.apache.ibatis.io.Resources;
@@ -15,20 +16,8 @@ import java.io.InputStream;
 @RestController
 @RequestMapping(value = "/comment")
 public class CommentController {
-    /**
-     * 静态Mybatis成员
-     */
-    static String resource = "mybatis-config.xml";
-    static InputStream inputStream;
-    static {
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    static SqlSession session = sqlSessionFactory.openSession();
+
+    static SqlSession session = SqlSessionFactoryUtil.openSqlSession();
 
     @GetMapping(value = "/GetCommentById/{id}")
     @ResponseBody

@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.User;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.io.Resources;
@@ -23,20 +24,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-    /**
-     * 静态Mybatis成员
-     */
-    static String resource = "mybatis-config.xml";
-    static InputStream inputStream;
-    static {
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    static SqlSession session = sqlSessionFactory.openSession();
+
+    static SqlSession session = SqlSessionFactoryUtil.openSqlSession();
 
     @GetMapping(value = "/GetUserById/{id}")
     @ResponseBody
@@ -44,11 +33,7 @@ public class UserController {
         User user = session.selectOne("getUser",id);
         return user;
     }
-    /**
-     *
-     * @param id 要删除的用户id
-     * @return
-     */
+
     @DeleteMapping(value = "/DeleteUserById/{id}")
     @ResponseBody
     public User DeleteUserById(@PathVariable("id") int id) {
@@ -62,11 +47,6 @@ public class UserController {
         return null;
     }
 
-    /**
-     *
-     * @param req 添加用户的post请求body
-     * @return
-     */
     @PostMapping(value = "/AddUser")
     @ResponseBody
     public User AddUser(HttpServletRequest req){
@@ -76,11 +56,6 @@ public class UserController {
         return user;
     }
 
-    /**
-     *
-     * @param req 修改用户的post请求body
-     * @return
-     */
     @PostMapping(value = "/UpdateUser")
     @ResponseBody
     public User UpdateUser(HttpServletRequest req){

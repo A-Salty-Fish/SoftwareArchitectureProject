@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.SqlSessionFactoryUtil;
 import com.example.demo.entity.Canteen;
 import com.example.demo.entity.User;
 import io.swagger.annotations.ApiOperation;
@@ -16,20 +17,8 @@ import java.io.InputStream;
 @RestController
 @RequestMapping(value = "/canteen")
 public class CanteenController {
-    /**
-     * 静态Mybatis成员
-     */
-    static String resource = "mybatis-config.xml";
-    static InputStream inputStream;
-    static {
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    static SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    static SqlSession session = sqlSessionFactory.openSession();
+
+    static SqlSession session = SqlSessionFactoryUtil.openSqlSession();
 
     @GetMapping("/GetCanteenById/{id}")
     @ResponseBody

@@ -46,7 +46,7 @@ public class CommentController {
         return comment;
     }
 
-    @GetMapping(value = "/DeleteCommentById/{id}")
+    @DeleteMapping(value = "/DeleteCommentById/{id}")
     @ResponseBody
     public Comment DeleteCommentById(@PathVariable("id") int id) {
         Comment comment = session.selectOne("getComment",id);

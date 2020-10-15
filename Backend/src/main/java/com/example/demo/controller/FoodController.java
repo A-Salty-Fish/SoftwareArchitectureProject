@@ -47,7 +47,7 @@ public class FoodController {
         return food;
     }
 
-    @GetMapping(value = "/DeleteFoodById/{id}")
+    @DeleteMapping(value = "/DeleteFoodById/{id}")
     @ResponseBody
     public Food DeleteFoodById(@PathVariable("id") int id) {
         Food food = session.selectOne("getFood",id);

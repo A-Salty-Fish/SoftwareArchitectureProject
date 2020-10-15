@@ -1,7 +1,9 @@
 package com.example.demo.entity;
 
-import javax.servlet.http.HttpServletRequest;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+import javax.servlet.http.HttpServletRequest;
 public class User {
     private int id;
     private String name;

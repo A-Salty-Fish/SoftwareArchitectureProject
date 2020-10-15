@@ -49,7 +49,7 @@ public class UserController {
      * @param id 要删除的用户id
      * @return
      */
-    @GetMapping(value = "/DeleteUserById/{id}")
+    @DeleteMapping(value = "/DeleteUserById/{id}")
     @ResponseBody
     public User DeleteUserById(@PathVariable("id") int id) {
         User user = session.selectOne("getUser",id);

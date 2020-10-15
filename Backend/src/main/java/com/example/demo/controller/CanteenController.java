@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Canteen;
 import com.example.demo.entity.User;
+import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,7 +37,7 @@ public class CanteenController {
         Canteen canteen = session.selectOne("getCanteenById", id);
         return canteen;
     }
-    @GetMapping("/DeleteCanteenById/{id}")
+    @DeleteMapping("/DeleteCanteenById/{id}")
     @ResponseBody
     public Canteen DeleteCanteenById(@PathVariable("id") int id){
         Canteen canteen = session.selectOne("getCanteenById", id);

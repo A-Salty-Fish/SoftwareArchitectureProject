@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.entity.User;
+import io.swagger.annotations.Api;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+@Api("User控制类")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {

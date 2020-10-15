@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Comment {
     private int id;
     private String content;
@@ -54,5 +56,22 @@ public class Comment {
 
     public void setStars(int stars) {
         this.stars = stars;
+    }
+
+    public static Comment ReqToComment(HttpServletRequest req){
+        int id = Integer.parseInt(req.getParameter("id"));
+        String content = req.getParameter("content");
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        String foodName = req.getParameter("foodName");
+        String canteen = req.getParameter("canteen");
+        int stars = Integer.parseInt(req.getParameter("stars"));
+        Comment comment = new Comment();
+        comment.setId(id);
+        comment.setContent(content);
+        comment.setUserId(userId);
+        comment.setFoodName(foodName);
+        comment.setCanteen(canteen);
+        comment.setStars(stars);
+        return comment;
     }
 }

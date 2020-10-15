@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Canteen {
     private int id;
     private String name;
@@ -27,5 +29,16 @@ public class Canteen {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public static Canteen ReqToCanteen(HttpServletRequest req){
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String position = req.getParameter("position");
+        Canteen canteen = new Canteen();
+        canteen.setId(id);
+        canteen.setName(name);
+        canteen.setPosition(position);
+        return canteen;
     }
 }

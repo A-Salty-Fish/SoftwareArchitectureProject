@@ -1,10 +1,12 @@
 package com.example.demo.entity;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Food {
     private int id;
     private String name;
     private String imgUrl;
-    private String cateen;
+    private String canteen;
 
     public int getId() {
         return id;
@@ -31,10 +33,23 @@ public class Food {
     }
 
     public String getCateen() {
-        return cateen;
+        return canteen;
     }
 
     public void setCateen(String cateen) {
-        this.cateen = cateen;
+        this.canteen = cateen;
+    }
+
+    public static Food ReqToFood(HttpServletRequest req){
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String imgUrl = req.getParameter("imgUrl");
+        String canteen = req.getParameter("Food");
+        Food food = new Food();
+        food.setId(id);
+        food.setName(name);
+        food.setImgUrl(imgUrl);
+        food.setCateen(canteen);
+        return food;
     }
 }

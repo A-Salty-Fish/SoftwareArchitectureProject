@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class User {
     private int id;
     private String name;
@@ -54,5 +56,22 @@ public class User {
 
     public void setAuthorLevel(int authorLevel) {
         AuthorLevel = authorLevel;
+    }
+
+    public static User ReqToUser(HttpServletRequest req){
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String headImgUrl = req.getParameter("headImgUrl");
+        String faculty = req.getParameter("faculty");
+        String schoolNum = req.getParameter("schoolNum");
+        int authorLevel = Integer.parseInt(req.getParameter("authorLevel"));
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setHeadImgUrl(headImgUrl);
+        user.setFaculty(faculty);
+        user.setSchoolNum(schoolNum);
+        user.setAuthorLevel(authorLevel);
+        return user;
     }
 }

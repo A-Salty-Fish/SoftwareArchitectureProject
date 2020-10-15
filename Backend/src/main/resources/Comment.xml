@@ -21,10 +21,14 @@
         select * from comment where id= #{id}
     </select>
 
-        <update id="updateComment" parameterType="Comment">
+    <update id="updateComment" parameterType="Comment">
             update comment set content = #{content},
             user_id = #{user_id}, food_name = #{food_name},
             canteen = #{canteen}, stars = #{stars}
             where id=#{id}
-        </update>
+    </update>
+
+    <select id="getCommentPage" parameterType="map" resultType="Comment">
+        select * from comment limit #{CurrentPage} , #{PageSize}
+    </select>
 </mapper>

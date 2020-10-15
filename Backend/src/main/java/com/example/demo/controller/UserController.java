@@ -68,9 +68,10 @@ public class UserController {
 
     @GetMapping(value = "/GetUserPage/{CurrentPage}/{PageSize}")
     @ResponseBody
-    public List<User> GetUserPage(@PathVariable("CurrentPage") int CurrentPage,
+    public List<User> GetUserPage2(@PathVariable("CurrentPage") int CurrentPage,
                                   @PathVariable("PageSize") int PageSize){
-        List<User> userList = session.selectList("listUser");
-        return SubPage.GetSubPage(userList,CurrentPage,PageSize);
+        List<User> userList = session.selectList("getUserPage",
+                SubPage.SubPageMap(CurrentPage,PageSize));
+        return userList;
     }
 }

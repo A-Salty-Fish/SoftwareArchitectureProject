@@ -64,7 +64,8 @@ public class CanteenController {
     @ResponseBody
     public List<Canteen> GetCanteenPage(@PathVariable("CurrentPage") int CurrentPage,
                                   @PathVariable("PageSize") int PageSize){
-        List<Canteen> canteenList = session.selectList("listCanteen");
-        return SubPage.GetSubPage(canteenList,CurrentPage,PageSize);
+        List<Canteen> canteenList = session.selectList("getCanteenPage",
+                SubPage.SubPageMap(CurrentPage,PageSize));
+        return canteenList;
     }
 }

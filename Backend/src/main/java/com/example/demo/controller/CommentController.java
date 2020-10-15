@@ -62,7 +62,8 @@ public class CommentController {
     @ResponseBody
     public List<Comment> GetCommentPage(@PathVariable("CurrentPage") int CurrentPage,
                                         @PathVariable("PageSize") int PageSize){
-        List<Comment> commentList = session.selectList("listComment");
-        return SubPage.GetSubPage(commentList,CurrentPage,PageSize);
+        List<Comment> commentList = session.selectList("getCommentPage",
+                SubPage.SubPageMap(CurrentPage,PageSize));
+        return commentList;
     }
 }

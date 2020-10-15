@@ -24,4 +24,8 @@
         school_num = #{school_num}, author_level = #{author_level}
         where id=#{id}
     </update>
+
+    <select id="getUserPage" parameterType="map" resultType="User">
+        select * from user limit #{CurrentPage} , #{PageSize}
+    </select>
 </mapper>

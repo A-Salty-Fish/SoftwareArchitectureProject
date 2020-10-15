@@ -26,4 +26,7 @@
         where id=#{id}
     </update>
 
+    <select id="getCanteenPage" parameterType="map" resultType="Canteen">
+        select * from canteen limit #{CurrentPage} , #{PageSize}
+    </select>
 </mapper>

@@ -25,4 +25,8 @@
         update food set name = #{name}, img_url = #{img_url}, canteen = #{canteen}
         where id = #{id}
     </update>
+
+    <select id="getFoodPage" parameterType="map" resultType="Food">
+        select * from food limit #{CurrentPage} , #{PageSize}
+    </select>
 </mapper>

@@ -60,8 +60,9 @@ public class FoodController {
     @ResponseBody
     public List<Food> GetFoodPage(@PathVariable("CurrentPage") int CurrentPage,
                                   @PathVariable("PageSize") int PageSize){
-        List<Food> foodList = session.selectList("listFood");
-        return SubPage.GetSubPage(foodList,CurrentPage,PageSize);
+        List<Food> foodList = session.selectList("getFoodPage",
+                SubPage.SubPageMap(CurrentPage,PageSize));
+        return foodList;
     }
 
 }

@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 public class Comment {
     private int id;
     private String content;
-    private int userId;
-    private String foodName;
+    private int user_id;
+    private String food_name;
     private String canteen;
     private int stars;
 
@@ -26,20 +26,20 @@ public class Comment {
         this.content = content;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public String getFoodName() {
-        return foodName;
+    public String getFood_name() {
+        return food_name;
     }
 
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
     }
 
     public String getCanteen() {
@@ -61,15 +61,15 @@ public class Comment {
     public static Comment ReqToComment(HttpServletRequest req){
         int id = Integer.parseInt(req.getParameter("id"));
         String content = req.getParameter("content");
-        int userId = Integer.parseInt(req.getParameter("userId"));
-        String foodName = req.getParameter("foodName");
+        int userId = Integer.parseInt(req.getParameter("user_id"));
+        String foodName = req.getParameter("food_name");
         String canteen = req.getParameter("canteen");
         int stars = Integer.parseInt(req.getParameter("stars"));
         Comment comment = new Comment();
         comment.setId(id);
         comment.setContent(content);
-        comment.setUserId(userId);
-        comment.setFoodName(foodName);
+        comment.setUser_id(userId);
+        comment.setFood_name(foodName);
         comment.setCanteen(canteen);
         comment.setStars(stars);
         return comment;

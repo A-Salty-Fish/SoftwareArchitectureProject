@@ -1,16 +1,13 @@
 package com.example.demo.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.servlet.http.HttpServletRequest;
 public class User {
     private int id;
     private String name;
-    private String headImgUrl;
+    private String headimg_url;
     private String faculty;
-    private String schoolNum;
-    private int AuthorLevel;
+    private String school_num;
+    private int author_level;
 
     public int getId() {
         return id;
@@ -28,12 +25,12 @@ public class User {
         this.name = name;
     }
 
-    public String getHeadImgUrl() {
-        return headImgUrl;
+    public String getHeadimg_url() {
+        return headimg_url;
     }
 
-    public void setHeadImgUrl(String headImgUrl) {
-        this.headImgUrl = headImgUrl;
+    public void setHeadimg_url(String headimg_url) {
+        this.headimg_url = headimg_url;
     }
 
     public String getFaculty() {
@@ -44,36 +41,36 @@ public class User {
         this.faculty = faculty;
     }
 
-    public String getSchoolNum() {
-        return schoolNum;
+    public String getSchool_num() {
+        return school_num;
     }
 
-    public void setSchoolNum(String schoolNum) {
-        this.schoolNum = schoolNum;
+    public void setSchool_num(String school_num) {
+        this.school_num = school_num;
     }
 
-    public int getAuthorLevel() {
-        return AuthorLevel;
+    public int getAuthor_level() {
+        return author_level;
     }
 
-    public void setAuthorLevel(int authorLevel) {
-        AuthorLevel = authorLevel;
+    public void setAuthor_level(int author_level) {
+        this.author_level = author_level;
     }
 
     public static User ReqToUser(HttpServletRequest req){
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
-        String headImgUrl = req.getParameter("headImgUrl");
+        String headImgUrl = req.getParameter("headimg_url");
         String faculty = req.getParameter("faculty");
-        String schoolNum = req.getParameter("schoolNum");
-        int authorLevel = Integer.parseInt(req.getParameter("authorLevel"));
+        String schoolNum = req.getParameter("school_num");
+        int authorLevel = Integer.parseInt(req.getParameter("author_level"));
         User user = new User();
         user.setId(id);
         user.setName(name);
-        user.setHeadImgUrl(headImgUrl);
+        user.setHeadimg_url(headImgUrl);
         user.setFaculty(faculty);
-        user.setSchoolNum(schoolNum);
-        user.setAuthorLevel(authorLevel);
+        user.setSchool_num(schoolNum);
+        user.setAuthor_level(authorLevel);
         return user;
     }
 }

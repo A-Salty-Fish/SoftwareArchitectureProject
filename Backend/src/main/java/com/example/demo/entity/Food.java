@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Food {
     private int id;
     private String name;
-    private String imgUrl;
+    private String img_url;
     private String canteen;
 
     public int getId() {
@@ -24,12 +24,12 @@ public class Food {
         this.name = name;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImg_url() {
+        return img_url;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
     public String getCateen() {
@@ -43,12 +43,12 @@ public class Food {
     public static Food ReqToFood(HttpServletRequest req){
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
-        String imgUrl = req.getParameter("imgUrl");
+        String imgUrl = req.getParameter("img_url");
         String canteen = req.getParameter("canteen");
         Food food = new Food();
         food.setId(id);
         food.setName(name);
-        food.setImgUrl(imgUrl);
+        food.setImg_url(imgUrl);
         food.setCateen(canteen);
         return food;
     }

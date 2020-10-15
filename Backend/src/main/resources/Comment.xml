@@ -10,7 +10,7 @@
 
     <insert id="addComment" parameterType= "Comment">
         insert into comment ( content ,user_id, food_name,canteen,stars)
-        values (#{content}, #{userId}, #{foodName},#{canteen},#{stars})
+        values (#{content}, #{user_id}, #{food_name},#{canteen},#{stars})
     </insert>
 
     <delete id="deleteComment" parameterType="_int">
@@ -21,9 +21,10 @@
         select * from comment where id= #{id}
     </select>
 
-    <!--    <update id="updateComment" parameterType="Food">-->
-    <!--        update comment set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
-    <!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
-    <!--        where id=#{id}-->
-    <!--    </update>-->
+        <update id="updateComment" parameterType="Comment">
+            update comment set content = #{content},
+            user_id = #{user_id}, food_name = #{food_name},
+            canteen = #{canteen}, stars = #{stars}
+            where id=#{id}
+        </update>
 </mapper>

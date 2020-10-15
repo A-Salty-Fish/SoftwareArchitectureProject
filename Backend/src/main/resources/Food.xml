@@ -10,7 +10,7 @@
 
     <insert id="addFood" parameterType= "Food">
         insert into food ( name ,img_url, canteen)
-        values (#{name}, #{imgUrl}, #{canteen})
+        values (#{name}, #{img_url}, #{canteen})
     </insert>
 
     <delete id="deleteFood" parameterType="_int">
@@ -22,7 +22,7 @@
     </select>
 
     <update id="updateFood" parameterType="Food">
-        update food set name = #{name}, img_url = #{imgUrl}, canteen = #{canteen}
+        update food set name = #{name}, img_url = #{img_url}, canteen = #{canteen}
         where id = #{id}
     </update>
 </mapper>

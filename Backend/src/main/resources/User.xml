@@ -9,7 +9,7 @@
     </select>
     <insert id="addUser" parameterType= "User">
         insert into user ( name ,headimg_url, faculty, school_num, author_level)
-        values (#{name}, #{headImgUrl}, #{faculty} , #{schoolNum} ,#{AuthorLevel})
+        values (#{name}, #{headimg_url}, #{faculty} , #{school_num} ,#{author_level})
     </insert>
     <delete id="deleteUser" parameterType="_int">
         delete from user where id = #{id}
@@ -20,8 +20,8 @@
     </select>
 
     <update id="updateUser" parameterType="User">
-        update user set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},
-        school_num = #{schoolNum}, author_level = #{AuthorLevel}
+        update user set name=#{name}, headimg_url = #{headimg_url}, faculty = #{faculty},
+        school_num = #{school_num}, author_level = #{author_level}
         where id=#{id}
     </update>
 </mapper>

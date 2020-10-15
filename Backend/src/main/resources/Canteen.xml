@@ -21,9 +21,9 @@
         select * from canteen where id= #{id}
     </select>
 
-<!--    <update id="updateUser" parameterType="Canteen">-->
-<!--        update canteen set name=#{name}, headimg_url = #{headImgUrl}, faculty = #{faculty},-->
-<!--        school_num = #{schoolNum}, author_level = #{AuthorLevel}-->
-<!--        where id=#{id}-->
-<!--    </update>-->
+    <update id="updateCanteen" parameterType="Canteen">
+        update canteen set name=#{name}, position = #{position}
+        where id=#{id}
+    </update>
+
 </mapper>

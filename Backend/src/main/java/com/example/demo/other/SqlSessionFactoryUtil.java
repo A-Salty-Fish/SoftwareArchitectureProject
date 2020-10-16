@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.other;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

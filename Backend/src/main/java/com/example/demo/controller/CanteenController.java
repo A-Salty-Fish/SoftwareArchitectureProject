@@ -1,20 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.Imp.SubPage;
-import com.example.demo.config.SqlSessionFactoryUtil;
+import com.example.demo.other.SubPage;
+import com.example.demo.other.SqlSessionFactoryUtil;
 import com.example.demo.entity.Canteen;
-import com.example.demo.entity.Food;
-import com.example.demo.entity.User;
-import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @RestController

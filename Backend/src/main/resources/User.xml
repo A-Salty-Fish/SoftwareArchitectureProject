@@ -28,4 +28,8 @@
     <select id="getUserPage" parameterType="map" resultType="User">
         select * from user limit #{CurrentPage} , #{PageSize}
     </select>
+
+    <select id="getLastId" resultType="_int">
+        select * from user order by id desc limit 1
+    </select>
 </mapper>

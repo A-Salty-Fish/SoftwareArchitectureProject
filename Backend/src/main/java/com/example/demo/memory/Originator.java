@@ -16,6 +16,6 @@ public class Originator {
     }
 
     public void getStateFromMemento(Memento Memento){
-        state = Memento.getState();
+        state = Memento.getStep();
     }
 }

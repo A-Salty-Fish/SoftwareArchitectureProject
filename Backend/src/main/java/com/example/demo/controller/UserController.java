@@ -7,6 +7,8 @@ import com.example.demo.other.SqlSessionFactoryUtil;
 import com.example.demo.entity.User;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,15 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
+    //Bean
+    ApplicationContext context =
+            new ClassPathXmlApplicationContext("ApplicationContext.xml");
     //单例数据库连接
     static SqlSession session = SqlSessionFactoryUtil.openSqlSession();
     //备忘录模式
     static Originator originator = new Originator();
     static CareTaker<User> careTaker = new CareTaker<User>();
+    SqlStep defaultSqlStep = (SqlStep)context.getBean("DefaultSqlStep");//默认状态
 
     @GetMapping(value = "/GetUserById/{id}")
     @ResponseBody
@@ -51,11 +57,9 @@ public class UserController {
     @ResponseBody
     public String RedoUser(){
         //返回备忘录当前状态
-        SqlStep lastStpe = careTaker.getState().getState();
+        SqlStep lastStpe = careTaker.getState().getStep();
         switch (lastStpe.getCmd())//根据上一步操作撤销
         {
-            case "none":
-                return "nothing to redo";
             case "add":
                 session.delete("deleteUser",lastStpe.getId());
                 session.commit();
@@ -66,6 +70,8 @@ public class UserController {
                 session.commit();
                 return "add " + user.getName();
             default:
+                if (lastStpe.getCmd().equals(defaultSqlStep.getCmd()))//默认状态 啥都不做
+                    return "nothing to redo";
                 return "error";
         }
     }

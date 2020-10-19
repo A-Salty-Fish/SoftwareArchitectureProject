@@ -1,6 +1,10 @@
 package com.example.demo.memory;
 
 
+import com.example.demo.entity.User;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.util.Stack;
 
 public class CareTaker<T> {
@@ -16,8 +20,11 @@ public class CareTaker<T> {
         //出栈
         if (!mementoStack.empty())
             return mementoStack.pop();
-        //栈为空返回空状态
-        return new Memento(new SqlStep("none",0));
+        //栈为空返回空状态 空状态由配置文件定义
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("ApplicationContext.xml");
+        SqlStep defaultSqlStep = (SqlStep)context.getBean("DefaultSqlStep");
+        return new Memento(defaultSqlStep);
     }
 
     public void addData(T data){

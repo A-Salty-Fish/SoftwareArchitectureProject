@@ -29,8 +29,8 @@ class DemoApplicationTests {
         careTaker.addState(originator.saveStateToMemento());
         originator.setState(new SqlStep("delete ",13));
         careTaker.addState(originator.saveStateToMemento());
-        SqlStep current = careTaker.getState().getState();
-        SqlStep last = careTaker.getState().getState();
+        SqlStep current = careTaker.getState().getStep();
+        SqlStep last = careTaker.getState().getStep();
         System.out.println(current.getCmd()+current.getId());
         System.out.println(last.getCmd()+last.getId());
     }

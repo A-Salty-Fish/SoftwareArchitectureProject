@@ -7,7 +7,7 @@ public class Memento {
         this.state = state;
     }
 
-    public SqlStep getState(){
+    public SqlStep getStep(){
         return state;
     }
 }

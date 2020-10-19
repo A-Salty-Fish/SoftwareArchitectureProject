@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.memory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import com.example.demo.controller.SqlStep;
+
 public class SqlStateMemento {
     private SqlStep state;
 

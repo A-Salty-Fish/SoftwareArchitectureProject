@@ -1,21 +1,22 @@
-package com.example.demo.controller;
+package com.example.demo.memory;
+import com.example.demo.memory.SqlStep;
 import org.apache.ibatis.session.SqlSession;
-import com.example.demo.controller.SqlStateMemento;
-import com.example.demo.controller.SqlStep;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MemoryTaker extends SqlStateMemento {
-    private List<SqlStateMemento> mementoList = new ArrayList<SqlStateMemento>();
+    private Stack<SqlStateMemento> mementoStack = new Stack<>();
 
     public MemoryTaker(SqlStep state) {
         super(state);
     }
 
     public void addMemento(SqlStateMemento memento) {
-        mementoList.add(memento);
+        mementoStack.push(memento);
     }
     public SqlStateMemento getMemento(int idx){
-        return mementoList.get(idx);
+        return mementoStack.pop();
     }
 }

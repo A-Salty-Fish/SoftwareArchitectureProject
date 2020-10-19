@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id = "user" class="com.example.demo.entity.User">
+    <property name="id" value="111"/>
+    <property name="name" value="男"/>
+    <property name="school_num" value="1111111"/>
+    <property name="headimg_url" value="111.111"/>
+    <property name="faculty" value="计算机学院"/>
+    <property name="author_level" value="13"/>
+</bean>
+</beans>

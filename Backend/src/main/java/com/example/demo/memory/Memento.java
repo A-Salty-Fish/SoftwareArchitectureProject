@@ -1,13 +1,13 @@
 package com.example.demo.memory;
 
 public class Memento {
-    private String state;
+    private SqlStep state;
 
-    public Memento(String state){
+    public Memento(SqlStep state){
         this.state = state;
     }
 
-    public String getState(){
+    public SqlStep getState(){
         return state;
     }
 }

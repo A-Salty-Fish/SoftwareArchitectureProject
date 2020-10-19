@@ -1,16 +1,16 @@
 package com.example.demo.memory;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Stack;
 
 public class CareTaker {
-    private List<Memento> mementoList = new ArrayList<Memento>();
+    private Stack<Memento> mementoStack = new Stack<>();
 
     public void add(Memento state){
-        mementoList.add(state);
+        mementoStack.push(state);
     }
 
-    public Memento get(int index){
-        return mementoList.get(index);
+    public Memento get(){
+        return mementoStack.pop();
     }
 }

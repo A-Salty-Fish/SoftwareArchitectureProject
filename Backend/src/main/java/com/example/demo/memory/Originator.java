@@ -1,13 +1,13 @@
 package com.example.demo.memory;
 
 public class Originator {
-    private String state;
+    private SqlStep state;
 
-    public void setState(String state){
+    public void setState(SqlStep state){
         this.state = state;
     }
 
-    public String getState(){
+    public SqlStep getState(){
         return state;
     }
 

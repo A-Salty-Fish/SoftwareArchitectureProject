@@ -1,6 +1,8 @@
 package com.example.demo.memory;
 
-public class SqlStep {
+import javax.servlet.http.HttpServletRequest;
+
+public class SqlStep<T> {
     private String cmd;
     private int id;
 
@@ -24,4 +26,5 @@ public class SqlStep {
     public void setId(int id) {
         this.id = id;
     }
+
 }

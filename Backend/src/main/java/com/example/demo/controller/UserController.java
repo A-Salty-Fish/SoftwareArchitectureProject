@@ -61,4 +61,10 @@ public class UserController {
                                   @PathVariable("PageSize") int PageSize){
         return userService.GetUserPage(CurrentPage,PageSize);
     }
+
+    @GetMapping(value = "/GetUserByName/{name}")
+    @ResponseBody
+    public List<User> GetUserByName(@PathVariable("name") String name){
+        return userService.GetUserByName(name);
+    }
 }

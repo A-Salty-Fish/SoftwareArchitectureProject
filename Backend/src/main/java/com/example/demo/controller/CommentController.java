@@ -48,4 +48,10 @@ public class CommentController {
                                         @PathVariable("PageSize") int PageSize){
         return commentService.GetCommentPage(CurrentPage,PageSize);
     }
+
+    @GetMapping(value = "/GetCommentByContent/{content}")
+    @ResponseBody
+    public List<Comment> GetCommentByContent(@PathVariable("content") String content){
+        return commentService.GetCommentByContent(content);
+    }
 }

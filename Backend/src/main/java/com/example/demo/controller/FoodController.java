@@ -49,4 +49,9 @@ public class FoodController {
         return foodService.GetFoodPage(CurrentPage,PageSize);
     }
 
+    @GetMapping(value = "GetFoodByName/{name}")
+    @ResponseBody
+    public List<Food> GetFoodByName(@PathVariable("name") String name){
+        return foodService.GetFoodByName(name);
+    }
 }

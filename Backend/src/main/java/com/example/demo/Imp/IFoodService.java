@@ -13,4 +13,5 @@ public interface IFoodService {
     public Food UpdateFood(HttpServletRequest req);
     public List<Food> GetFoodPage(int CurrentPage,
                                   int PageSize);
+    public List<Food> GetFoodByName(String name);
 }

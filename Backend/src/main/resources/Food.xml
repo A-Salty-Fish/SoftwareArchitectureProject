@@ -29,4 +29,8 @@
     <select id="getFoodPage" parameterType="map" resultType="Food">
         select * from food limit #{CurrentPage} , #{PageSize}
     </select>
+
+    <select id="getFoodByLikeName" parameterType="java.lang.String" resultType="Food">
+      select * from food where name like #{name,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ public interface ICanteenService {
     public Canteen UpdateCanteen(HttpServletRequest req);
     public List<Canteen> GetCanteenPage(int CurrentPage,
                                         int PageSize);
+    public List<Canteen> GetCanteenByName(String name);
 }

@@ -2,6 +2,7 @@ package com.example.demo.Impl;
 
 import com.example.demo.Imp.IFoodService;
 import com.example.demo.entity.Food;
+import com.example.demo.entity.User;
 import com.example.demo.other.SqlSessionFactoryUtil;
 import com.example.demo.other.SubPage;
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +49,12 @@ public class FoodServiceImpl implements IFoodService {
     public List<Food> GetFoodPage(int CurrentPage, int PageSize) {
         List<Food> foodList = session.selectList("getFoodPage",
                 SubPage.SubPageMap(CurrentPage,PageSize));
+        return foodList;
+    }
+
+    @Override
+    public List<Food> GetFoodByName(String name) {
+        List<Food> foodList = session.selectList("getFoodByLikeName","%"+name+"%");
         return foodList;
     }
 }

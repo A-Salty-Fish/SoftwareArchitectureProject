@@ -31,4 +31,8 @@
     <select id="getCommentPage" parameterType="map" resultType="Comment">
         select * from comment limit #{CurrentPage} , #{PageSize}
     </select>
+
+    <select id="getCommentByLikeContent" parameterType="java.lang.String" resultType="Comment">
+      select * from comment where content like #{content,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -29,4 +29,8 @@
     <select id="getCanteenPage" parameterType="map" resultType="Canteen">
         select * from canteen limit #{CurrentPage} , #{PageSize}
     </select>
+
+    <select id="getCanteenByLikeName" parameterType="java.lang.String" resultType="Canteen">
+      select * from canteen where name like #{name,jdbcType=VARCHAR}
+    </select>
 </mapper>

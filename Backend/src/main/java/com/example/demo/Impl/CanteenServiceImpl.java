@@ -54,4 +54,10 @@ public class CanteenServiceImpl implements ICanteenService {
                 SubPage.SubPageMap(CurrentPage,PageSize));
         return canteenList;
     }
+
+    @Override
+    public List<Canteen> GetCanteenByName(String name) {
+        List<Canteen> canteenList = session.selectList("getCanteenByLikeName","%"+name+"%");
+        return canteenList;
+    }
 }

@@ -101,4 +101,10 @@ public class UserServiceImpl implements IUserService {
                 SubPage.SubPageMap(CurrentPage,PageSize));
         return userList;
     }
+
+    @Override
+    public List<User> GetUserByName(String name){
+        List<User> userList = session.selectList("getUserByLikeName","%"+name+"%");
+        return userList;
+    }
 }

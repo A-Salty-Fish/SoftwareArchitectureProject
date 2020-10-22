@@ -13,4 +13,5 @@ public interface ICommentService {
     public Comment UpdateComment(HttpServletRequest req);
     public List<Comment> GetCommentPage(int CurrentPage,
                                         int PageSize);
+    public List<Comment> GetCommentByContent(String content);
 }

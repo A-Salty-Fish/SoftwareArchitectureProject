@@ -21,4 +21,5 @@ public interface IUserService {
     public User UpdateUser(HttpServletRequest req);
     public List<User> GetUserPage(int CurrentPage,
                                   int PageSize);
+    public List<User> GetUserByName(String name);
 }

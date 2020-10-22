@@ -53,4 +53,10 @@ public class CommentServiceImpl implements ICommentService {
                 SubPage.SubPageMap(CurrentPage,PageSize));
         return commentList;
     }
+
+    @Override
+    public List<Comment> GetCommentByContent(String content) {
+        List<Comment> commentList = session.selectList("getCommentByLikeContent","%"+content+"%");
+        return commentList;
+    }
 }

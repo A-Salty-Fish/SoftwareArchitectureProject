@@ -32,4 +32,8 @@
     <select id="getLastId" resultType="_int">
         select * from user order by id desc limit 1
     </select>
+
+    <select id="getUserByLikeName" parameterType="java.lang.String" resultType="User">
+      select * from user where name like #{name,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -50,4 +50,10 @@ public class CanteenController {
                                   @PathVariable("PageSize") int PageSize){
         return canteenService.GetCanteenPage(CurrentPage,PageSize);
     }
+
+    @GetMapping(value = "/GetCanteenByName/{name}")
+    @ResponseBody
+    public List<Canteen> GetCanteenByName(@PathVariable("name") String name){
+        return canteenService.GetCanteenByName(name);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.other.MyRequestUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,6 @@ public class User {
     private int author_level;
 
     public static User ReqToUser(HttpServletRequest req){
-        User user = new User();
-        ServletRequestDataBinder binder = new ServletRequestDataBinder(user);
-        binder.bind(req);
-        return user;
+        return MyRequestUtil.getParameterObject(req,User.class);
     }
 }

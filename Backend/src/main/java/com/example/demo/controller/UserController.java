@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.Imp.IUserService;
 import com.example.demo.Impl.UserServiceImpl;
 import com.example.demo.memory.CareTaker;
 import com.example.demo.memory.Originator;
@@ -22,7 +23,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private IUserService userService;
 
     @GetMapping(value = "/GetUserById/{id}")
     @ResponseBody

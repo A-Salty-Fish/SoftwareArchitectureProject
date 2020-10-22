@@ -16,6 +16,7 @@ import java.util.List;
 public interface IUserService {
     public User GetUserById(int id);
     public User DeleteUserById(int id);
+    public String RedoUser();
     public User AddUser(HttpServletRequest req);
     public User UpdateUser(HttpServletRequest req);
     public List<User> GetUserPage(int CurrentPage,

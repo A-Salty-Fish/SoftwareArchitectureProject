@@ -64,7 +64,7 @@ public class UserServiceImpl implements IUserService {
                 User user = careTaker.getData();
                 session.insert("addUser",user);
                 session.commit();
-                return "add " + user.getName();
+                return "add " + user.toString() ;
             default:
                 if (lastStpe.getCmd().equals(defaultSqlStep.getCmd()))//默认状态 啥都不做
                     return "nothing to redo";

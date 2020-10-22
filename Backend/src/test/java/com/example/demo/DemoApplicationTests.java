@@ -35,11 +35,4 @@ class DemoApplicationTests {
         System.out.println(last.getCmd()+last.getId());
     }
 
-    @Test
-    void testSpring(){
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext("ApplicationContext.xml");
-        User user = (User)context.getBean("user");
-        System.out.println(user.getFaculty());
-    }
 }

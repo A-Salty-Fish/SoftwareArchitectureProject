@@ -23,9 +23,8 @@ export default {
   },
   methods: {
     TestClick() {
-      var that = this
       axios.get('http://localhost:8080/canteen/GetCanteenByName/食堂').then(function(response) {
-        that.resres = response.data;
+        console.log(response.data)
       })
         .catch(function(error) {
           console.log(error)

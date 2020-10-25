@@ -24,13 +24,8 @@ export default {
   methods: {
     TestClick() {
       var that = this
-      axios.post('http://localhost:3000/users/register', {
-        username: 'dzy',
-        password: 'dzydzy',
-        userMail: 'dzy@dzy.dzy',
-        userPhone: '123456'
-      }).then(function(response) {
-        that.resres = response
+      axios.get('http://localhost:8080/canteen/GetCanteenByName/食堂').then(function(response) {
+        that.resres = response.data;
       })
         .catch(function(error) {
           console.log(error)

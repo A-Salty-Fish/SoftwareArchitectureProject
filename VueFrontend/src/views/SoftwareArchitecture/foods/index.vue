@@ -5,7 +5,7 @@
       :visible.sync="InvalidInputDialogVisible"
       width="30%"
       :show-close="false"
-      :before-close="handleClose"
+      @close="upDateData=beforUpdateData"
     >
       <span>输入无效</span>
       <span slot="footer" class="dialog-footer">
@@ -16,20 +16,25 @@
       title="修改"
       :visible.sync="UpdatedialogVisible"
       width="30%"
-      :before-close="handleClose"
     >
-      <el-form :inline="true">
+      <el-form :model="upDateData" :inline="true">
+        <el-form-item label="序号">
+          <el-input v-model="upDateData.id" :disabled="true" size="small" />
+        </el-form-item>
         <el-form-item label="菜名">
-          <el-input size="small" placeholder="菜名" />
+          <el-input v-model="upDateData.name" size="small" placeholder="菜名" />
+        </el-form-item>
+        <el-form-item label="图片链接">
+          <el-input v-model="upDateData.img_url" size="small" placeholder="图片链接" />
         </el-form-item>
         <el-form-item label="食堂">
-          <el-select v-model="addData.canteen" size="small" placeholder="食堂">
+          <el-select v-model="upDateData.canteen" size="small" placeholder="食堂">
             <el-option v-for="(item) in canteens" :key="item.id" :label="item.name" :value="item.name" />
           </el-select>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="UpdatedialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="commitEdit">确 定</el-button>
       </span>
     </el-dialog>
     <el-divider />
@@ -136,6 +141,12 @@ export default {
         'canteen': '',
         'img_url': ''
       },
+      upDateData: {
+        'id': -1,
+        'name': '',
+        'canteen': '',
+        'img_url': ''
+      },
       sortState: 0
     }
   },
@@ -203,6 +214,34 @@ export default {
         that.getAllFood()
       })
     },
+    updateFood() {
+      var that = this
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/food/UpdateFood',
+        data: {
+          'id': that.upDateData.id,
+          'name': that.upDateData.name,
+          'canteen': that.upDateData.canteen,
+          'img_url': that.upDateData.img_url
+        },
+        transformRequest: [
+          function(data) {
+            let ret = ''
+            for (const it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            ret = ret.substring(0, ret.lastIndexOf('&'))
+            return ret
+          }
+        ],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function(response) {
+        that.getAllFood()
+      })
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage
       location.href = '#TableTop'
@@ -223,21 +262,24 @@ export default {
       console.log('id:' + id)
       this.deleteFoodById(id)
     },
-    handleEdit(index, row) {
+    handleEdit(id, row) {
       this.UpdatedialogVisible = true
-      console.log('Edit ' + 'index:' + index + 'row:' + row)
+      var index = this.IndexOfId(id)
+      this.upDateData.id = this.tableData[index].id
+      this.upDateData.name = this.tableData[index].name
+      this.upDateData.img_url = this.tableData[index].img_url
+      this.upDateData.canteen = this.tableData[index].canteen
+      console.log(this.upDateData)
     },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
+    commitEdit() {
+      this.updateFood()
+      this.UpdatedialogVisible = false
     },
     AddFood() {
       var that = this
       if (that.addData.name === '' || that.addData.canteen === '') {
         that.InvalidInputDialogVisible = true
+        return
       }
       console.log(that.addData)
       that.addFood()

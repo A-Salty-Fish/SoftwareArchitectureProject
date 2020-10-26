@@ -257,6 +257,9 @@ export default {
       var index = this.IndexOfId(id)
       console.log('index:' + index)
       this.tableData.splice(index, 1)
+      if (this.tableData.length % this.pageSize === 0) {
+        this.currentPage--
+      }
       console.log('id:' + id)
       this.deleteFoodById(id)
     },

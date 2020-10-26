@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="提示"
+      title="警告"
       :visible.sync="InvalidInputDialogVisible"
       width="30%"
       :show-close="false"
@@ -10,6 +10,26 @@
       <span>输入无效</span>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="InvalidInputDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="修改"
+      :visible.sync="UpdatedialogVisible"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <el-form :inline="true">
+        <el-form-item label="菜名">
+          <el-input size="small" placeholder="菜名" />
+        </el-form-item>
+        <el-form-item label="食堂">
+          <el-select v-model="addData.canteen" size="small" placeholder="食堂">
+            <el-option v-for="(item) in canteens" :key="item.id" :label="item.name" :value="item.name" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="UpdatedialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
     <el-divider />
@@ -46,7 +66,6 @@
         sortable="custom"
       >
         <template slot-scope="scope">
-<!--          <i class="el-icon-s-flag" />-->
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
@@ -55,7 +74,6 @@
         label="菜名"
       >
         <template slot-scope="scope">
-<!--          <i class="el-icon-food" />-->
           <span style="margin-left: 10px">{{ scope.row.name }}</span>
         </template>
       </el-table-column>
@@ -64,7 +82,6 @@
         label="食堂"
       >
         <template slot-scope="scope">
-<!--          <i class="el-icon-s-shop" />-->
           <span style="margin-left: 10px">{{ scope.row.canteen }}</span>
         </template>
       </el-table-column>
@@ -112,6 +129,7 @@ export default {
       allData: [],
       canteens: [],
       InvalidInputDialogVisible: false,
+      UpdatedialogVisible: false,
       addData: {
         'id': 0,
         'name': '',
@@ -189,9 +207,6 @@ export default {
       this.currentPage = currentPage
       location.href = '#TableTop'
     },
-    handleEdit(index, row) {
-      console.log('Edit ' + 'index:' + index + 'row:' + row)
-    },
     IndexOfId(id) {
       var index = -1
       for (var i = 0; i < this.tableData.length; i++) {
@@ -207,6 +222,10 @@ export default {
       this.tableData.splice(index, 1)
       console.log('id:' + id)
       this.deleteFoodById(id)
+    },
+    handleEdit(index, row) {
+      this.UpdatedialogVisible = true
+      console.log('Edit ' + 'index:' + index + 'row:' + row)
     },
     handleClose(done) {
       this.$confirm('确认关闭？')

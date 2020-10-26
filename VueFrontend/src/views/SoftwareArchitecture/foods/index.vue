@@ -3,19 +3,19 @@
     <el-divider />
     <el-row>
       <el-col :span="10"><br></el-col>
-      <el-col :span="14">
+      <el-col :span="13">
         <el-form :inline="true" :model="addData">
-          <el-form-item label="菜名">
-            <el-input v-model="addData.name" placeholder="菜名" />
+          <el-form-item  label="菜名">
+            <el-input size="small" v-model="addData.name" placeholder="菜名" />
           </el-form-item>
           <el-form-item label="食堂">
-            <el-select v-model="addData.canteen" placeholder="食堂">
+            <el-select size="small" v-model="addData.canteen" placeholder="食堂">
               <el-option v-for="(item) in canteens" :key="item.id" :label="item.name" :value="item.name" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="success" @click="AddFood">添加</el-button>
-            <el-button type="primary" @click="SearchFood">搜索</el-button>
+            <el-button type="success" size="mini" @click="AddFood">添加</el-button>
+            <el-button type="primary" size="mini" @click="SearchFood">搜索</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -196,5 +196,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

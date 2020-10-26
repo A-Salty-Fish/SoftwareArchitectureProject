@@ -15,7 +15,7 @@
     <el-divider />
     <el-row>
       <el-col :span="10"><br></el-col>
-      <el-col :span="13">
+      <el-col :span="14">
         <el-form :inline="true" :model="addData">
           <el-form-item label="菜名">
             <el-input v-model="addData.name" size="small" placeholder="菜名" />
@@ -28,6 +28,7 @@
           <el-form-item>
             <el-button type="success" size="mini" @click="AddFood">添加</el-button>
             <el-button type="primary" size="mini" @click="SearchFood">搜索</el-button>
+            <el-button type="plain" size="mini" @click="getAllFood">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-col>

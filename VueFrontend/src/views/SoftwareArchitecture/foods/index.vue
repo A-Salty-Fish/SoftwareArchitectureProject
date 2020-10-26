@@ -1,15 +1,27 @@
 <template>
   <div>
+    <el-dialog
+      title="提示"
+      :visible.sync="InvalidInputDialogVisible"
+      width="30%"
+      :show-close="false"
+      :before-close="handleClose"
+    >
+      <span>输入无效</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="InvalidInputDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-divider />
     <el-row>
       <el-col :span="10"><br></el-col>
       <el-col :span="13">
         <el-form :inline="true" :model="addData">
-          <el-form-item  label="菜名">
-            <el-input size="small" v-model="addData.name" placeholder="菜名" />
+          <el-form-item label="菜名">
+            <el-input v-model="addData.name" size="small" placeholder="菜名" />
           </el-form-item>
           <el-form-item label="食堂">
-            <el-select size="small" v-model="addData.canteen" placeholder="食堂">
+            <el-select v-model="addData.canteen" size="small" placeholder="食堂">
               <el-option v-for="(item) in canteens" :key="item.id" :label="item.name" :value="item.name" />
             </el-select>
           </el-form-item>
@@ -24,13 +36,13 @@
       id="TableTop"
       :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       style="width: 100%"
-      @sort-change = "SortById"
+      @sort-change="SortById"
     >
       <el-table-column
         align="center"
         prop="id"
         label="编号"
-        sortable = "custom"
+        sortable="custom"
       >
         <template slot-scope="scope">
           <i class="el-icon-s-flag" />
@@ -96,8 +108,9 @@ export default {
       currentPage: 1,
       pageSize: 6,
       tableData: [],
+      allData: [],
       canteens: [],
-      dialogVisible: false,
+      InvalidInputDialogVisible: false,
       addData: {
         'id': 0,
         'name': '',
@@ -109,57 +122,39 @@ export default {
   },
   created() {
     var that = this
-    axios.get('http://localhost:8080/food/GetAllFood').then(function(response) {
-      that.tableData = response.data
-      console.log(that.tableData)
-    }).catch(function(error) {
-      console.log(error)
-    })
-    axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
-      that.canteens = response.data
-      console.log(that.canteens)
-    }).catch(function(error) {
-      console.log(error)
-    })
+    that.getAllFood()
+    that.getAllCanteen()
   },
   methods: {
-    handleCurrentChange(currentPage) {
-      this.currentPage = currentPage
-      location.href = '#TableTop'
+    getAllFood() {
+      var that = this
+      axios.get('http://localhost:8080/food/GetAllFood').then(function(response) {
+        that.allData = response.data
+        that.tableData = response.data
+        console.log(that.tableData)
+      }).catch(function(error) {
+        console.log(error)
+      })
     },
-    handleEdit(index, row) {
-      console.log('Edit ' + 'index:' + index + 'row:' + row)
+    getAllCanteen() {
+      var that = this
+      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+        that.canteens = response.data
+        that.addData.canteen = that.canteens[0].name
+        console.log(that.canteens)
+      }).catch(function(error) {
+        console.log(error)
+      })
     },
-    IndexOfId(id) {
-      var index = -1
-      for (var i = 0; i < this.tableData.length; i++) {
-        if (this.tableData[i].id === id) {
-          index = i
-        }
-      }
-      return index
-    },
-    handleDelete(id, row) {
-      var index = this.IndexOfId(id)
-      console.log('index:' + index)
-      this.tableData.splice(index, 1)
-      console.log('id:' + id)
+    deleteFoodById(id) {
       axios.delete('http://localhost:8080/food/DeleteFoodById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
       })
     },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
-    },
-    AddFood() {
+    addFood() {
       var that = this
-      console.log(that.addData)
       axios({
         method: 'post',
         url: 'http://localhost:8080/food/AddFood',
@@ -183,24 +178,57 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function(response) {
-        axios.get('http://localhost:8080/food/GetAllFood').then(function(response) {
-          // console.log(response.data)
-          that.tableData.push(response.data[response.data.length - 1])
-        }).catch(function(error) {
-          console.log(error)
-        })
+        that.getAllFood()
       })
+    },
+    handleCurrentChange(currentPage) {
+      this.currentPage = currentPage
+      location.href = '#TableTop'
+    },
+    handleEdit(index, row) {
+      console.log('Edit ' + 'index:' + index + 'row:' + row)
+    },
+    IndexOfId(id) {
+      var index = -1
+      for (var i = 0; i < this.tableData.length; i++) {
+        if (this.tableData[i].id === id) {
+          index = i
+        }
+      }
+      return index
+    },
+    handleDelete(id, row) {
+      var index = this.IndexOfId(id)
+      console.log('index:' + index)
+      this.tableData.splice(index, 1)
+      console.log('id:' + id)
+      this.deleteFoodById(id)
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+    AddFood() {
+      var that = this
+      if (that.addData.name === '') {
+        that.InvalidInputDialogVisible = true
+      }
+      console.log(that.addData)
+      that.addFood()
     },
     SearchFood() {
       var that = this
+      that.tableData = []
       console.log(that.searchData.name + that.searchData.canteen)
     },
     SortById() {
       this.sortState = (this.sortState + 1) % 3
       if (this.sortState === 1) {
         this.tableData.reverse()
-      }
-      else if (this.sortState === 2) {
+      } else if (this.sortState === 2) {
         this.tableData.reverse()
       }
       console.log(this.sortState)

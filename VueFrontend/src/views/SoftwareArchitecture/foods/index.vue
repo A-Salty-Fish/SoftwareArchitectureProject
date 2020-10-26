@@ -2,9 +2,9 @@
   <div>
     <el-divider />
     <el-row>
-      <el-col :span="12"><br></el-col>
-      <el-col :span="12">
-        <el-form :inline="true" :model="addData" class="demo-form-inline">
+      <el-col :span="10"><br></el-col>
+      <el-col :span="14">
+        <el-form :inline="true" :model="addData">
           <el-form-item label="菜名">
             <el-input v-model="addData.name" placeholder="菜名" />
           </el-form-item>
@@ -15,6 +15,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="AddFood">添加</el-button>
+            <el-button type="primary" @click="SearchFood">搜索</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -26,7 +27,7 @@
     >
       <el-table-column
         align="center"
-        label="序号"
+        label="编号"
       >
         <template slot-scope="scope">
           <i class="el-icon-s-flag" />
@@ -56,19 +57,15 @@
         label="操作"
       >
         <template slot-scope="scope">
-          <!--          <el-button-->
-          <!--            size="mini"-->
-          <!--            type="primary"-->
-          <!--            @click="handleRead(scope.$index, scope.row)">查看</el-button>-->
           <el-button
             size="mini"
             type="warning"
-            @click="handleEdit(scope.$index, scope.row)"
+            @click="handleEdit(scope.row.id, scope.row)"
           >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleEdit(scope.$index, scope.row)"
+            @click="handleDelete(scope.row.id, scope.row)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -83,15 +80,6 @@
         @current-change="handleCurrentChange"
       />
     </div>
-    <!--    <el-dialog-->
-    <!--      title="详细信息"-->
-    <!--      :visible.sync="dialogVisible"-->
-    <!--      :before-close="handleClose">-->
-    <!--      <span>{{}}</span>-->
-    <!--      <span slot="footer" class="dialog-footer">-->
-    <!--    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
-    <!--  </span>-->
-    <!--    </el-dialog>-->
   </div>
 </template>
 
@@ -103,14 +91,15 @@ export default {
   data() {
     return {
       currentPage: 1,
-      pageSize: 12,
+      pageSize: 6,
       tableData: [],
       canteens: [],
       dialogVisible: false,
       addData: {
-        id: 0,
-        name: '',
-        canteen: ''
+        'id': 0,
+        'name': '',
+        'canteen': '',
+        'img_url': ''
       }
     }
   },
@@ -134,12 +123,28 @@ export default {
       this.currentPage = currentPage
       location.href = '#TableTop'
     },
-    // handleRead(index, row) {
-    //   console.log('Read ' + 'index:' + index + 'row:' + row)
-    //   this.dialogVisible = true
-    // },
     handleEdit(index, row) {
       console.log('Edit ' + 'index:' + index + 'row:' + row)
+    },
+    IndexOfId(id) {
+      var index = -1
+      for (var i = 0; i < this.tableData.length; i++) {
+        if (this.tableData[i].id === id) {
+          index = i
+        }
+      }
+      return index
+    },
+    handleDelete(id, row) {
+      var index = this.IndexOfId(id)
+      console.log('index:' + index)
+      this.tableData.splice(index, 1)
+      console.log('id:' + id)
+      axios.delete('http://localhost:8080/food/DeleteFoodById/' + id).then(function(response) {
+        console.log(response.data)
+      }).catch(function(error) {
+        console.log(error)
+      })
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
@@ -149,7 +154,42 @@ export default {
         .catch(_ => {})
     },
     AddFood() {
-      console.log(this.addData)
+      var that = this
+      console.log(that.addData)
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/food/AddFood',
+        data: {
+          'id': that.addData.id,
+          'name': that.addData.name,
+          'canteen': that.addData.canteen,
+          'img_url': that.addData.img_url
+        },
+        transformRequest: [
+          function(data) {
+            let ret = ''
+            for (const it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            ret = ret.substring(0, ret.lastIndexOf('&'))
+            return ret
+          }
+        ],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function(response) {
+        axios.get('http://localhost:8080/food/GetAllFood').then(function(response) {
+          // console.log(response.data)
+          that.tableData.push(response.data[response.data.length - 1])
+        }).catch(function(error) {
+          console.log(error)
+        })
+      })
+    },
+    SearchFood() {
+      var that = this
+      console.log(that.searchData.name + that.searchData.canteen)
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="Echarts">
+    <el-divider></el-divider>
     <div id="chart1" style="width: 500px;height:500px; float: left" />
     <div id="chart2" style="width: 500px;height:500px; float: left" />
   </div>

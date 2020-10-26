@@ -46,7 +46,7 @@
         sortable="custom"
       >
         <template slot-scope="scope">
-          <i class="el-icon-s-flag" />
+<!--          <i class="el-icon-s-flag" />-->
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
@@ -55,7 +55,7 @@
         label="菜名"
       >
         <template slot-scope="scope">
-          <i class="el-icon-food" />
+<!--          <i class="el-icon-food" />-->
           <span style="margin-left: 10px">{{ scope.row.name }}</span>
         </template>
       </el-table-column>
@@ -64,7 +64,7 @@
         label="食堂"
       >
         <template slot-scope="scope">
-          <i class="el-icon-s-shop" />
+<!--          <i class="el-icon-s-shop" />-->
           <span style="margin-left: 10px">{{ scope.row.canteen }}</span>
         </template>
       </el-table-column>

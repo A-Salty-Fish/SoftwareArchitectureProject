@@ -14,4 +14,5 @@ public interface IFoodService {
     public List<Food> GetFoodPage(int CurrentPage,
                                   int PageSize);
     public List<Food> GetFoodByName(String name);
+    public List<Food> GetAllFood();
 }

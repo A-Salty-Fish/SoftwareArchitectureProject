@@ -57,4 +57,11 @@ public class FoodServiceImpl implements IFoodService {
         List<Food> foodList = session.selectList("getFoodByLikeName","%"+name+"%");
         return foodList;
     }
+
+    @Override
+    public List<Food> GetAllFood() {
+        List<Food> foodList = session.selectList("listFood");
+        return foodList;
+    }
+
 }

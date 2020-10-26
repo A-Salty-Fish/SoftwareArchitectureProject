@@ -107,4 +107,10 @@ public class UserServiceImpl implements IUserService {
         List<User> userList = session.selectList("getUserByLikeName","%"+name+"%");
         return userList;
     }
+
+    @Override
+    public List<User> GetAllUser() {
+        List<User> userList = session.selectList("listUser");
+        return userList;
+    }
 }

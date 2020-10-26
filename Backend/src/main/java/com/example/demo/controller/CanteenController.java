@@ -56,4 +56,10 @@ public class CanteenController {
     public List<Canteen> GetCanteenByName(@PathVariable("name") String name){
         return canteenService.GetCanteenByName(name);
     }
+
+    @GetMapping(value = "/GetAllCanteen")
+    @ResponseBody
+    public List<Canteen> GetAllCanteen(){
+        return canteenService.GetAllCanteen();
+    }
 }

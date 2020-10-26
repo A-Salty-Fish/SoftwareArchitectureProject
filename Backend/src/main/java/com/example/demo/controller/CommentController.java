@@ -54,4 +54,10 @@ public class CommentController {
     public List<Comment> GetCommentByContent(@PathVariable("content") String content){
         return commentService.GetCommentByContent(content);
     }
+
+    @GetMapping(value = "/GetAllComment")
+    @ResponseBody
+    public List<Comment> GetAllComment(){
+        return commentService.GetAllComment();
+    }
 }

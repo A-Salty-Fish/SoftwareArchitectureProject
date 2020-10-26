@@ -60,4 +60,10 @@ public class CanteenServiceImpl implements ICanteenService {
         List<Canteen> canteenList = session.selectList("getCanteenByLikeName","%"+name+"%");
         return canteenList;
     }
+
+    @Override
+    public List<Canteen> GetAllCanteen() {
+        List<Canteen> canteenList = session.selectList("listCanteen");
+        return canteenList;
+    }
 }

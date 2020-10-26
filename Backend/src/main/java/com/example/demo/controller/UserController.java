@@ -67,4 +67,10 @@ public class UserController {
     public List<User> GetUserByName(@PathVariable("name") String name){
         return userService.GetUserByName(name);
     }
+
+    @GetMapping(value = "/GetAllUser")
+    @ResponseBody
+    public List<User> GetAllUser(){
+        return userService.GetAllUser();
+    }
 }

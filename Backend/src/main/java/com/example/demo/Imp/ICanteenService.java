@@ -14,4 +14,5 @@ public interface ICanteenService {
     public List<Canteen> GetCanteenPage(int CurrentPage,
                                         int PageSize);
     public List<Canteen> GetCanteenByName(String name);
+    public List<Canteen> GetAllCanteen();
 }

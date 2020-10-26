@@ -22,4 +22,5 @@ public interface IUserService {
     public List<User> GetUserPage(int CurrentPage,
                                   int PageSize);
     public List<User> GetUserByName(String name);
+    public List<User> GetAllUser();
 }

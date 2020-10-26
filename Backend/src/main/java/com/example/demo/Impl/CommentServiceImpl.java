@@ -59,4 +59,10 @@ public class CommentServiceImpl implements ICommentService {
         List<Comment> commentList = session.selectList("getCommentByLikeContent","%"+content+"%");
         return commentList;
     }
+
+    @Override
+    public List<Comment> GetAllComment() {
+        List<Comment> commentList = session.selectList("listComment");
+        return commentList;
+    }
 }

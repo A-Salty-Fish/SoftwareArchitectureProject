@@ -14,4 +14,5 @@ public interface ICommentService {
     public List<Comment> GetCommentPage(int CurrentPage,
                                         int PageSize);
     public List<Comment> GetCommentByContent(String content);
+    public List<Comment> GetAllComment();
 }

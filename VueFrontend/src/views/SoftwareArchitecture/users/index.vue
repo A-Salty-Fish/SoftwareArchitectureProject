@@ -69,6 +69,30 @@
       style="width: 100%"
       @sort-change="SortById"
     >
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="编号">
+              <span>{{ props.row.id }}</span>
+            </el-form-item>
+            <el-form-item label="姓名">
+              <span>{{ props.row.name }}</span>
+            </el-form-item>
+            <el-form-item label="头像链接">
+              <span>{{ props.row.headimg_url }}</span>
+            </el-form-item>
+            <el-form-item label="学院">
+              <span>{{ props.row.faculty }}</span>
+            </el-form-item>
+            <el-form-item label="学号">
+              <span>{{ props.row.school_num }}</span>
+            </el-form-item>
+            <el-form-item label="权限">
+              <span>{{ props.row.author_level }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         prop="id"
@@ -320,4 +344,16 @@ export default {
 </script>
 
 <style scoped>
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

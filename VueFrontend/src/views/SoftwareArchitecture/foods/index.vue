@@ -5,7 +5,6 @@
       :visible.sync="InvalidInputDialogVisible"
       width="30%"
       :show-close="false"
-      @close="upDateData=beforUpdateData"
     >
       <span>输入无效</span>
       <span slot="footer" class="dialog-footer">
@@ -173,7 +172,6 @@ export default {
         that.canteens.unshift({
           'name': ''
         })
-        that.addData.canteen = that.canteens[0].name
         console.log(that.canteens)
       }).catch(function(error) {
         console.log(error)
@@ -286,11 +284,11 @@ export default {
     },
     SearchFood() {
       var that = this
+      that.currentPage = 1
       that.tableData = that.allData.filter(item => {
         return item.name.includes(that.addData.name) && item.canteen.includes((that.addData.canteen))
       })
-      // that.tableData = that.allData.splice(1, 10)
-      console.log(that.addData.name + that.addData.canteen)
+      console.log(that.tableData)
     },
     SortById() {
       this.sortState = (this.sortState + 1) % 3

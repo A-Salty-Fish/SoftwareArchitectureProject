@@ -24,10 +24,13 @@
       id="TableTop"
       :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       style="width: 100%"
+      @sort-change = "SortById"
     >
       <el-table-column
         align="center"
+        prop="id"
         label="编号"
+        sortable = "custom"
       >
         <template slot-scope="scope">
           <i class="el-icon-s-flag" />
@@ -100,7 +103,8 @@ export default {
         'name': '',
         'canteen': '',
         'img_url': ''
-      }
+      },
+      sortState: 0
     }
   },
   created() {
@@ -190,6 +194,16 @@ export default {
     SearchFood() {
       var that = this
       console.log(that.searchData.name + that.searchData.canteen)
+    },
+    SortById() {
+      this.sortState = (this.sortState + 1) % 3
+      if (this.sortState === 1) {
+        this.tableData.reverse()
+      }
+      else if (this.sortState === 2) {
+        this.tableData.reverse()
+      }
+      console.log(this.sortState)
     }
   }
 }

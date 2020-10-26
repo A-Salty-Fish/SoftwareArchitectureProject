@@ -141,6 +141,9 @@ export default {
       var that = this
       axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
         that.canteens = response.data
+        that.canteens.unshift({
+          'name': ''
+        })
         that.addData.canteen = that.canteens[0].name
         console.log(that.canteens)
       }).catch(function(error) {
@@ -214,7 +217,7 @@ export default {
     },
     AddFood() {
       var that = this
-      if (that.addData.name === '') {
+      if (that.addData.name === '' || that.addData.canteen === '') {
         that.InvalidInputDialogVisible = true
       }
       console.log(that.addData)
@@ -222,8 +225,11 @@ export default {
     },
     SearchFood() {
       var that = this
-      that.tableData = []
-      console.log(that.searchData.name + that.searchData.canteen)
+      that.tableData = that.allData.filter(item => {
+        return item.name.includes(that.addData.name) && item.canteen.includes((that.addData.canteen))
+      })
+      // that.tableData = that.allData.splice(1, 10)
+      console.log(that.addData.name + that.addData.canteen)
     },
     SortById() {
       this.sortState = (this.sortState + 1) % 3

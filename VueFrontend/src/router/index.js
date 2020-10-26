@@ -55,6 +55,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/Users',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Users',
+        component: () => import('@/views/SoftwareArchitecture/users/index'),
+        meta: { title: '用户', icon: 'user' }
+      }
+    ]
+  },
+
+  {
     path: '/Canteens',
     component: Layout,
     children: [
@@ -76,32 +89,6 @@ export const constantRoutes = [
         name: 'Foods',
         component: () => import('@/views/SoftwareArchitecture/foods/index'),
         meta: { title: '菜品', icon: 'food' }
-      }
-    ]
-  },
-
-  {
-    path: '/Notice',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Notice',
-        component: () => import('@/views/Notice/index'),
-        meta: { title: '公告', icon: 'star' }
-      }
-    ]
-  },
-
-  {
-    path: '/ItemInfo',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'ItemInfo',
-        component: () => import('@/views/ItemsInfo/index'),
-        meta: { title: '器材信息', icon: 'form' }
       }
     ]
   },

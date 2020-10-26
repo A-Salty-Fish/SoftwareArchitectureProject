@@ -55,14 +55,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/Canteens',
+    path: '/Foods',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'Canteens',
-        component: () => import('@/views/SoftwareArchitecture/canteens/index'),
-        meta: { title: '食堂', icon: 'nested' }
+        name: 'Foods',
+        component: () => import('@/views/SoftwareArchitecture/foods/index'),
+        meta: { title: '菜品', icon: 'food' }
       }
     ]
   },

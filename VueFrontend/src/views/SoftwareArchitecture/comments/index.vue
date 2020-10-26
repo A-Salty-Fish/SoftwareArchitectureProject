@@ -20,21 +20,23 @@
         <el-form-item label="序号">
           <el-input v-model="upDateData.id" :disabled="true" size="small" />
         </el-form-item>
-        <el-form-item label="姓名">
-          <el-input v-model="upDateData.name" size="small" placeholder="姓名" />
+        <el-form-item label="评论">
+          <el-input v-model="upDateData.content" size="small" placeholder="评论" />
         </el-form-item>
-        <el-form-item label="头像链接">
-          <el-input v-model="upDateData.headimg_url" size="small" placeholder="头像链接" />
+        <el-form-item label="用户id">
+          <el-input v-model="upDateData.user_id" size="small" placeholder="用户id" />
         </el-form-item>
-        <el-form-item label="学院">
-          <el-input v-model="upDateData.faculty" size="small" placeholder="学院" />
+        <el-form-item label="菜名">
+          <el-input v-model="upDateData.food_name" size="small" placeholder="菜名" />
         </el-form-item>
-        <el-form-item label="学号">
-          <el-input v-model="upDateData.school_num" size="small" placeholder="学号" />
+        <el-form-item label="食堂">
+          <el-select v-model="upDateData.canteen" size="small" placeholder="权限">
+            <el-option v-for="(item, index) in canteens" :key="index" :label="item" :value="item" />
+          </el-select>
         </el-form-item>
-        <el-form-item label="权限">
-          <el-select v-model="upDateData.author_level" size="small">
-            <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />
+        <el-form-item label="评星">
+          <el-select v-model="upDateData.stars" size="small">
+            <el-option v-for="(item, index) in starsArr" :key="index" :label="item" :value="item" />
           </el-select>
         </el-form-item>
       </el-form>
@@ -44,21 +46,29 @@
     </el-dialog>
     <el-divider />
     <el-row>
-      <el-col :span="10"><br></el-col>
-      <el-col :span="14">
+      <el-col :span="1"><br></el-col>
+      <el-col :span="23">
         <el-form :inline="true" :model="addData">
-          <el-form-item label="姓名">
-            <el-input v-model="addData.name" size="small" placeholder="姓名" />
+          <el-form-item label="菜名">
+            <el-input v-model="addData.food_name" size="small" placeholder="菜名" />
           </el-form-item>
-          <el-form-item label="权限">
-            <el-select v-model="addData.author_level" size="small" placeholder="权限">
-              <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />
+          <el-form-item label="食堂">
+            <el-select v-model="addData.canteen" size="small" placeholder="">
+              <el-option v-for="(item, index) in canteens" :key="index" :label="item" :value="item" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="评论">
+            <el-input v-model="addData.content" size="small" placeholder="评论" />
+          </el-form-item>
+          <el-form-item label="评星">
+            <el-select v-model="addData.stars" size="small" placeholder="">
+              <el-option v-for="(item, index) in starsArr" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="success" size="mini" @click="AddUser">添加</el-button>
+            <el-button type="success" size="mini" @click="AddComment">添加</el-button>
             <el-button type="primary" size="mini" @click="Search">搜索</el-button>
-            <el-button type="plain" size="mini" @click="getAllUser">刷新</el-button>
+            <el-button type="plain" size="mini" @click="getAllComment">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -69,6 +79,30 @@
       style="width: 100%"
       @sort-change="SortById"
     >
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="编号">
+              <span>{{ props.row.id }}</span>
+            </el-form-item>
+            <el-form-item label="评价内容">
+              <span>{{ props.row.content }}</span>
+            </el-form-item>
+            <el-form-item label="用户id">
+              <span>{{ props.row.user_id }}</span>
+            </el-form-item>
+            <el-form-item label="菜名">
+              <span>{{ props.row.food_name }}</span>
+            </el-form-item>
+            <el-form-item label="食堂">
+              <span>{{ props.row.canteen }}</span>
+            </el-form-item>
+            <el-form-item label="评星">
+              <span>{{ props.row.stars }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         prop="id"
@@ -81,26 +115,18 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="姓名"
+        label="菜名"
       >
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.food_name }}</span>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        label="学院"
+        label="评星"
       >
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.faculty }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="权限"
-      >
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.author_level }}</span>
+          <span style="margin-left: 10px">{{ scope.row.stars }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -147,34 +173,36 @@ export default {
       allData: [],
       InvalidInputDialogVisible: false,
       UpdatedialogVisible: false,
-      author_levels: [1, 2, 3, 4],
+      canteens: [],
+      starsArr: ['', 1, 2, 3, 4, 5],
       addData: {
-        'id': -1,
-        'name': '',
-        'headimg_url': '',
-        'faculty': '',
-        'school_num': '',
-        'author_level': 4
+        'id': 0,
+        'content': '',
+        'user_id': 0,
+        'food_name': '',
+        'canteen': '',
+        'stars': 0
       },
       upDateData: {
-        'id': -1,
-        'name': '',
-        'headimg_url': '',
-        'faculty': '',
-        'school_num': '',
-        'author_level': 4
+        'id': 0,
+        'content': '',
+        'user_id': 0,
+        'food_name': '',
+        'canteen': '',
+        'stars': 0
       },
       sortState: 0
     }
   },
   created() {
     var that = this
-    that.getAllUser()
+    that.getAllComment()
+    that.getAllCanteen()
   },
   methods: {
-    getAllUser() {
+    getAllComment() {
       var that = this
-      axios.get('http://localhost:8080/user/GetAllUser').then(function(response) {
+      axios.get('http://localhost:8080/comment/GetAllComment').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
         console.log(that.allData)
@@ -182,25 +210,37 @@ export default {
         console.log(error)
       })
     },
-    deleteUserById(id) {
-      axios.delete('http://localhost:8080/user/DeleteUserById/' + id).then(function(response) {
+    getAllCanteen() {
+      var that = this
+      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+        that.canteens = response.data
+        that.canteens.unshift({
+          'name': ''
+        })
+        console.log(that.canteens)
+      }).catch(function(error) {
+        console.log(error)
+      })
+    },
+    deleteCommentById(id) {
+      axios.delete('http://localhost:8080/comment/DeleteCommentById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
       })
     },
-    addUser() {
+    addComment() {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/user/AddUser',
+        url: 'http://localhost:8080/comment/AddComment',
         data: {
           'id': that.addData.id,
-          'name': that.addData.name,
-          'headimg_url': that.addData.headimg_url,
-          'faculty': that.addData.faculty,
-          'school_num': that.addData.school_num,
-          'author_level': that.addData.author_level
+          'content': that.addData.content,
+          'user_id': that.addData.user_id,
+          'food_name': that.addData.food_name,
+          'canteen': that.addData.canteen,
+          'stars': that.addData.stars
         },
         transformRequest: [
           function(data) {
@@ -216,21 +256,21 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function(response) {
-        that.getAllUser()
+        that.getAllComment()
       })
     },
-    updateUser() {
+    updateComment() {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/user/UpdateUser',
+        url: 'http://localhost:8080/comment/UpdateComment',
         data: {
           'id': that.upDateData.id,
-          'name': that.upDateData.name,
-          'headimg_url': that.upDateData.headimg_url,
-          'faculty': that.upDateData.faculty,
-          'school_num': that.upDateData.school_num,
-          'author_level': that.upDateData.author_level
+          'content': that.upDateData.content,
+          'user_id': that.upDateData.user_id,
+          'food_name': that.upDateData.food_name,
+          'canteen': that.upDateData.canteen,
+          'stars': that.upDateData.stars
         },
         transformRequest: [
           function(data) {
@@ -246,7 +286,7 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function(response) {
-        that.getAllUser()
+        that.getAllComment()
       })
     },
     handleCurrentChange(currentPage) {
@@ -270,31 +310,31 @@ export default {
         this.currentPage--
       }
       console.log('id:' + id)
-      this.deleteUserById(id)
+      this.deleteCommentById(id)
     },
     handleEdit(id, row) {
-      this.UpdatedialogVisible = true
       var index = this.IndexOfId(id)
       this.upDateData.id = this.tableData[index].id
-      this.upDateData.name = this.tableData[index].name
-      this.upDateData.headimg_url = this.tableData[index].headimg_url
-      this.upDateData.faculty = this.tableData[index].faculty
-      this.upDateData.school_num = this.tableData[index].school_num
-      this.upDateData.author_level = this.tableData[index].author_level
+      this.upDateData.content = this.tableData[index].content
+      this.upDateData.user_id = this.tableData[index].user_id
+      this.upDateData.food_name = this.tableData[index].food_name
+      this.upDateData.canteen = this.tableData[index].canteen
+      this.upDateData.stars = this.tableData[index].stars
+      this.UpdatedialogVisible = true
       console.log(this.upDateData)
     },
     commitEdit() {
-      this.updateUser()
+      this.updateComment()
       this.UpdatedialogVisible = false
     },
-    AddUser() {
+    AddComment() {
       var that = this
       if (that.addData.name === '' || that.addData.author_level === '') {
         that.InvalidInputDialogVisible = true
         return
       }
       console.log(that.addData)
-      that.addUser()
+      that.addComment()
     },
     Search() {
       var that = this
@@ -320,4 +360,16 @@ export default {
 </script>
 
 <style scoped>
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

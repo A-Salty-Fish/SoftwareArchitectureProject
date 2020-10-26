@@ -20,12 +20,21 @@
         <el-form-item label="序号">
           <el-input v-model="upDateData.id" :disabled="true" size="small" />
         </el-form-item>
-        <el-form-item label="食堂名">
-          <el-input v-model="upDateData.name" size="small" placeholder="菜名" />
+        <el-form-item label="姓名">
+          <el-input v-model="upDateData.name" size="small" placeholder="姓名" />
         </el-form-item>
-        <el-form-item label="位置">
-          <el-select v-model="upDateData.position" size="small" placeholder="位置">
-            <el-option v-for="(item, index) in positions" :key="index" :label="item" :value="item" />
+        <el-form-item label="头像链接">
+          <el-input v-model="upDateData.headimg_url" size="small" placeholder="头像链接" />
+        </el-form-item>
+        <el-form-item label="学院">
+          <el-input v-model="upDateData.faculty" size="small" placeholder="学院" />
+        </el-form-item>
+        <el-form-item label="学号">
+          <el-input v-model="upDateData.school_num" size="small" placeholder="学号" />
+        </el-form-item>
+        <el-form-item label="权限">
+          <el-select v-model="upDateData.author_level" size="small">
+            <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />
           </el-select>
         </el-form-item>
       </el-form>
@@ -38,22 +47,18 @@
       <el-col :span="10"><br></el-col>
       <el-col :span="14">
         <el-form :inline="true" :model="addData">
-          <el-form-item label="食堂名">
-            <el-input v-model="addData.name" size="small" placeholder="食堂名" />
+          <el-form-item label="姓名">
+            <el-input v-model="addData.name" size="small" placeholder="姓名" />
           </el-form-item>
-          <el-form-item label="位置">
-            <el-select v-model="addData.position" size="small" placeholder="位置">
-              <el-option label="" value="" />
-              <el-option label="信息学部" value="信息学部" />
-              <el-option label="文理学部" value="文理学部" />
-              <el-option label="工学部" value="工学部" />
-              <el-option label="医学部" value="医学部" />
+          <el-form-item label="权限">
+            <el-select v-model="addData.author_level" size="small" placeholder="权限">
+              <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="success" size="mini" @click="AddCanteen">添加</el-button>
+            <el-button type="success" size="mini" @click="AddUser">添加</el-button>
             <el-button type="primary" size="mini" @click="Search">搜索</el-button>
-            <el-button type="plain" size="mini" @click="getAllCanteen">刷新</el-button>
+            <el-button type="plain" size="mini" @click="getAllUser">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -76,7 +81,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="食堂名"
+        label="姓名"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.name }}</span>
@@ -84,10 +89,18 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="位置"
+        label="学院"
       >
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.position }}</span>
+          <span style="margin-left: 10px">{{ scope.row.faculty }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="权限"
+      >
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.author_level }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -134,51 +147,60 @@ export default {
       allData: [],
       InvalidInputDialogVisible: false,
       UpdatedialogVisible: false,
-      positions: ['', '信息学部', '文理学部', '工学部', '医学部'],
+      author_levels: [1, 2, 3, 4],
       addData: {
         'id': -1,
         'name': '',
-        'position': ''
+        'headimg_url': '',
+        'faculty': '',
+        'school_num': '',
+        'author_level': 4
       },
       upDateData: {
         'id': -1,
         'name': '',
-        'position': ''
+        'headimg_url': '',
+        'faculty': '',
+        'school_num': '',
+        'author_level': 4
       },
       sortState: 0
     }
   },
   created() {
     var that = this
-    that.getAllCanteen()
+    that.getAllUser()
   },
   methods: {
-    getAllCanteen() {
+    getAllUser() {
       var that = this
-      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+      axios.get('http://localhost:8080/user/GetAllUser').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
-        console.log(that.canteens)
+        console.log(that.allData)
       }).catch(function(error) {
         console.log(error)
       })
     },
-    deleteCanteenById(id) {
-      axios.delete('http://localhost:8080/canteen/DeleteCanteenById/' + id).then(function(response) {
+    deleteUserById(id) {
+      axios.delete('http://localhost:8080/user/DeleteUserById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
       })
     },
-    addCanteen() {
+    addUser() {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/canteen/AddCanteen',
+        url: 'http://localhost:8080/user/AddUser',
         data: {
           'id': that.addData.id,
           'name': that.addData.name,
-          'position': that.addData.position
+          'headimg_url': that.addData.headimg_url,
+          'faculty': that.addData.faculty,
+          'school_num': that.addData.school_num,
+          'author_level': that.addData.author_level
         },
         transformRequest: [
           function(data) {
@@ -194,18 +216,21 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function(response) {
-        that.getAllCanteen()
+        that.getAllUser()
       })
     },
-    updateCanteen() {
+    updateUser() {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/canteen/UpdateCanteen',
+        url: 'http://localhost:8080/user/UpdateUser',
         data: {
           'id': that.upDateData.id,
           'name': that.upDateData.name,
-          'position': that.upDateData.position
+          'headimg_url': that.upDateData.headimg_url,
+          'faculty': that.upDateData.faculty,
+          'school_num': that.upDateData.school_num,
+          'author_level': that.upDateData.author_level
         },
         transformRequest: [
           function(data) {
@@ -221,7 +246,7 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(function(response) {
-        that.getAllCanteen()
+        that.getAllUser()
       })
     },
     handleCurrentChange(currentPage) {
@@ -245,34 +270,39 @@ export default {
         this.currentPage--
       }
       console.log('id:' + id)
-      this.deleteCanteenById(id)
+      this.deleteUserById(id)
     },
     handleEdit(id, row) {
       this.UpdatedialogVisible = true
       var index = this.IndexOfId(id)
       this.upDateData.id = this.tableData[index].id
       this.upDateData.name = this.tableData[index].name
-      this.upDateData.position = this.tableData[index].position
+      this.upDateData.headimg_url = this.tableData[index].headimg_url
+      this.upDateData.faculty = this.tableData[index].faculty
+      this.upDateData.school_num = this.tableData[index].school_num
+      this.upDateData.author_level = this.tableData[index].author_level
       console.log(this.upDateData)
     },
     commitEdit() {
-      this.updateCanteen()
+      this.updateUser()
       this.UpdatedialogVisible = false
     },
-    AddCanteen() {
+    AddUser() {
       var that = this
-      if (that.addData.name === '' || that.addData.position === '') {
+      if (that.addData.name === '' || that.addData.author_level === '') {
         that.InvalidInputDialogVisible = true
         return
       }
       console.log(that.addData)
-      that.addCanteen()
+      that.addUser()
     },
     Search() {
       var that = this
       that.currentPage = 1
       that.tableData = that.allData.filter(item => {
-        return item.name.includes(that.addData.name) && item.position.includes((that.addData.position))
+        console.log(item.author_level)
+        console.log(item.author_level)
+        return item.name.includes(that.addData.name) && item.author_level === that.addData.author_level
       })
       console.log(that.tableData)
     },

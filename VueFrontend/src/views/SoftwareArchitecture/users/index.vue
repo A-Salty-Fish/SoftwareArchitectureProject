@@ -44,11 +44,17 @@
     </el-dialog>
     <el-divider />
     <el-row>
-      <el-col :span="10"><br></el-col>
-      <el-col :span="14">
+      <el-col :span="1"><br></el-col>
+      <el-col :span="23">
         <el-form :inline="true" :model="addData">
           <el-form-item label="姓名">
             <el-input v-model="addData.name" size="small" placeholder="姓名" />
+          </el-form-item>
+          <el-form-item label="学院">
+            <el-input v-model="addData.faculty" size="small" placeholder="学院" />
+          </el-form-item>
+          <el-form-item label="学号">
+            <el-input v-model="addData.school_num" size="small" placeholder="学号" />
           </el-form-item>
           <el-form-item label="权限">
             <el-select v-model="addData.author_level" size="small" placeholder="权限">
@@ -171,7 +177,7 @@ export default {
       allData: [],
       InvalidInputDialogVisible: false,
       UpdatedialogVisible: false,
-      author_levels: [1, 2, 3, 4],
+      author_levels: ['', 1, 2, 3, 4],
       addData: {
         'id': -1,
         'name': '',
@@ -313,7 +319,8 @@ export default {
     },
     AddUser() {
       var that = this
-      if (that.addData.name === '' || that.addData.author_level === '') {
+      if (that.addData.name === '' ||
+        that.addData.author_level === '') {
         that.InvalidInputDialogVisible = true
         return
       }
@@ -324,9 +331,10 @@ export default {
       var that = this
       that.currentPage = 1
       that.tableData = that.allData.filter(item => {
-        console.log(item.author_level)
-        console.log(item.author_level)
-        return item.name.includes(that.addData.name) && item.author_level === that.addData.author_level
+        return item.name.includes(that.addData.name) &&
+          item.author_level === that.addData.author_level &&
+          item.faculty.includes(that.addData.faculty) &&
+          item.school_num.includes(that.addData.school_num)
       })
       console.log(that.tableData)
     },

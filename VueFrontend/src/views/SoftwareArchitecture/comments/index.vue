@@ -31,7 +31,7 @@
         </el-form-item>
         <el-form-item label="食堂">
           <el-select v-model="upDateData.canteen" size="small" placeholder="权限">
-            <el-option v-for="(item, index) in canteens" :key="index" :label="item" :value="item" />
+            <el-option v-for="(item, index) in canteens" :key="index" :label="item.name" :value="item.name" />
           </el-select>
         </el-form-item>
         <el-form-item label="评星">
@@ -54,14 +54,14 @@
           </el-form-item>
           <el-form-item label="食堂">
             <el-select v-model="addData.canteen" size="small" placeholder="">
-              <el-option v-for="(item, index) in canteens" :key="index" :label="item" :value="item" />
+              <el-option v-for="(item, index) in canteens" :key="index" :label="item.name" :value="item.name" />
             </el-select>
           </el-form-item>
           <el-form-item label="评论">
             <el-input v-model="addData.content" size="small" placeholder="评论" />
           </el-form-item>
           <el-form-item label="评星">
-            <el-select v-model="addData.stars" size="small" placeholder="">
+            <el-select v-model="addData.stars" size="small">
               <el-option v-for="(item, index) in starsArr" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
@@ -181,7 +181,7 @@ export default {
         'user_id': 0,
         'food_name': '',
         'canteen': '',
-        'stars': 0
+        'stars': 5
       },
       upDateData: {
         'id': 0,
@@ -189,7 +189,7 @@ export default {
         'user_id': 0,
         'food_name': '',
         'canteen': '',
-        'stars': 0
+        'stars': 5
       },
       sortState: 0
     }
@@ -329,7 +329,7 @@ export default {
     },
     AddComment() {
       var that = this
-      if (that.addData.name === '' || that.addData.author_level === '') {
+      if (that.addData.stars === '' || that.addData.canteen === '' || that.addData.food_name === '') {
         that.InvalidInputDialogVisible = true
         return
       }
@@ -340,9 +340,10 @@ export default {
       var that = this
       that.currentPage = 1
       that.tableData = that.allData.filter(item => {
-        console.log(item.author_level)
-        console.log(item.author_level)
-        return item.name.includes(that.addData.name) && item.author_level === that.addData.author_level
+        return item.food_name.includes(that.addData.food_name) &&
+          item.canteen.includes(that.addData.canteen) &&
+          item.content.includes(that.addData.content) &&
+          (that.addData.stars === that.starsArr[0] || item.stars === that.addData.stars)
       })
       console.log(that.tableData)
     },

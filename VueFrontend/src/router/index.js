@@ -55,6 +55,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/Canteens',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Canteens',
+        component: () => import('@/views/SoftwareArchitecture/canteens/index'),
+        meta: { title: '食堂', icon: 'canteen' }
+      }
+    ]
+  },
+
+  {
     path: '/Foods',
     component: Layout,
     children: [

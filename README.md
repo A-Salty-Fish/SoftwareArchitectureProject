@@ -25,3 +25,18 @@
 * 管理员在地图上添加食堂。
 * 食堂导航图。
 * 食堂食品分布图。
+
+##最终需求
+* 砍去用户模块，只剩管理员CRUD模块。
+* 附加需求没有时间做
+
+##预览图
+* 用户管理模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/user.png?raw=true)
+* 食堂管理模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/canteen.png?raw=true)
+* 菜品管理模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/food.png?raw=true)
+* 评论管理模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/comment.png?raw=true)
+

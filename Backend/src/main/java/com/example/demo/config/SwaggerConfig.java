@@ -33,7 +33,7 @@ public class SwaggerConfig {
 
         return  new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("James")
+                .groupName("A-Salty-Fish")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
                 //.paths(PathSelectors.ant("/hello/**"))
@@ -45,15 +45,15 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo(){
         //配置作者信息
-        Contact DEFAULT_CONTACT = new Contact("James", "https://blog.csdn.net/zhanshixiang/", "zhanshixiang1997@163.com");
+        Contact DEFAULT_CONTACT = new Contact("A-Salty-Fish", "https://github.com/A-Salty-Fish/", "A_Salty_Fish@126.com");
         return  new ApiInfo(
-                "James 的Swagger API文档",
-                "码出高效",
+                "A-Salty-Fish 的 Swagger API文档",
+                "软件架构作业",
                 "v1.0",
-                "https://blog.csdn.net/zhanshixiang/",
+                "https://github.com/A-Salty-Fish/",
                 DEFAULT_CONTACT,
-                "Apache 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0",
+                "MIT",
+                "https://mit-license.org/",
                 new ArrayList());
     }
 }

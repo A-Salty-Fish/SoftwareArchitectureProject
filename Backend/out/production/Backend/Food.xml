@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.entity.Food">
+    <select id="listFood" resultType="Food">
+        select * from food
+    </select>
+
+    <insert id="addFood" parameterType= "Food">
+        insert into food ( name ,img_url, canteen)
+        values (#{name}, #{img_url}, #{canteen})
+    </insert>
+
+    <delete id="deleteFood" parameterType="_int">
+        delete from food where id = #{id}
+    </delete>
+
+    <select id="getFood" parameterType="_int" resultType="Food">
+        select * from food where id= #{id}
+    </select>
+
+    <update id="updateFood" parameterType="Food">
+        update food set name = #{name}, img_url = #{img_url}, canteen = #{canteen}
+        where id = #{id}
+    </update>
+
+    <select id="getFoodPage" parameterType="map" resultType="Food">
+        select * from food limit #{CurrentPage} , #{PageSize}
+    </select>
+
+    <select id="getFoodByLikeName" parameterType="java.lang.String" resultType="Food">
+      select * from food where name like #{name,jdbcType=VARCHAR}
+    </select>
+</mapper>

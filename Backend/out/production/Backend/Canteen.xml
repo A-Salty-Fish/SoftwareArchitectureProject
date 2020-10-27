@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.entity.Canteen">
+    <select id="listCanteen" resultType="Canteen">
+        select * from canteen
+    </select>
+
+    <insert id="addCanteen" parameterType= "Canteen">
+        insert into canteen ( name , position )
+        values (#{name}, #{position})
+    </insert>
+
+    <delete id="deleteCanteenById" parameterType="_int">
+        delete from canteen where id = #{id}
+    </delete>
+
+    <select id="getCanteenById" parameterType="_int" resultType="Canteen">
+        select * from canteen where id= #{id}
+    </select>
+
+    <update id="updateCanteen" parameterType="Canteen">
+        update canteen set name=#{name}, position = #{position}
+        where id=#{id}
+    </update>
+
+    <select id="getCanteenPage" parameterType="map" resultType="Canteen">
+        select * from canteen limit #{CurrentPage} , #{PageSize}
+    </select>
+
+    <select id="getCanteenByLikeName" parameterType="java.lang.String" resultType="Canteen">
+      select * from canteen where name like #{name,jdbcType=VARCHAR}
+    </select>
+</mapper>

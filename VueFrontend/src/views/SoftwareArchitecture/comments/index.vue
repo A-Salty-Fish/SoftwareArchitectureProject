@@ -202,7 +202,7 @@ export default {
   methods: {
     getAllComment() {
       var that = this
-      axios.get('http://localhost:8080/comment/GetAllComment').then(function(response) {
+      axios.get(this.$store.state.commentHeadUrl + 'GetAllComment').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
         console.log(that.allData)
@@ -223,7 +223,7 @@ export default {
       })
     },
     deleteCommentById(id) {
-      axios.delete('http://localhost:8080/comment/DeleteCommentById/' + id).then(function(response) {
+      axios.delete(this.$store.state.commentHeadUrl + 'DeleteCommentById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
@@ -233,7 +233,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/comment/AddComment',
+        url: this.$store.state.commentHeadUrl + 'AddComment',
         data: {
           'id': that.addData.id,
           'content': that.addData.content,
@@ -263,7 +263,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/comment/UpdateComment',
+        url: this.$store.state.commentHeadUrl + 'UpdateComment',
         data: {
           'id': that.upDateData.id,
           'content': that.upDateData.content,

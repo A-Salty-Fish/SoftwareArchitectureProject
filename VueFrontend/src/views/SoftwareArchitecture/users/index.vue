@@ -203,8 +203,9 @@ export default {
   },
   methods: {
     getAllUser() {
+      console.log()
       var that = this
-      axios.get('http://localhost:8080/user/GetAllUser').then(function(response) {
+      axios.get(this.$store.state.userHeadUrl + 'GetAllUser').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
         console.log(that.allData)
@@ -213,7 +214,7 @@ export default {
       })
     },
     deleteUserById(id) {
-      axios.delete('http://localhost:8080/user/DeleteUserById/' + id).then(function(response) {
+      axios.delete(this.$store.state.userHeadUrl + 'DeleteUserById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
@@ -223,7 +224,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/user/AddUser',
+        url: this.$store.state.userHeadUrl + 'AddUser',
         data: {
           'id': that.addData.id,
           'name': that.addData.name,
@@ -253,7 +254,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/user/UpdateUser',
+        url: this.$store.state.userHeadUrl + 'UpdateUser',
         data: {
           'id': that.upDateData.id,
           'name': that.upDateData.name,

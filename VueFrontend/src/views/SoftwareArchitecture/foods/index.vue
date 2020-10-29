@@ -175,7 +175,7 @@ export default {
   methods: {
     getAllFood() {
       var that = this
-      axios.get('http://localhost:8080/food/GetAllFood').then(function(response) {
+      axios.get(this.$store.state.foodHeadUrl + 'GetAllFood').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
         console.log(that.tableData)
@@ -185,7 +185,7 @@ export default {
     },
     getAllCanteen() {
       var that = this
-      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+      axios.get(this.$store.state.canteenHeadUrl + 'GetAllCanteen').then(function(response) {
         that.canteens = response.data
         that.canteens.unshift({
           'name': ''
@@ -196,7 +196,7 @@ export default {
       })
     },
     deleteFoodById(id) {
-      axios.delete('http://localhost:8080/food/DeleteFoodById/' + id).then(function(response) {
+      axios.delete(this.$store.state.foodHeadUrl + 'DeleteFoodById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
@@ -206,7 +206,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/food/AddFood',
+        url: this.$store.state.foodHeadUrl + 'AddFood',
         data: {
           'id': that.addData.id,
           'name': that.addData.name,
@@ -234,7 +234,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/food/UpdateFood',
+        url: this.$store.state.foodHeadUrl + 'UpdateFood',
         data: {
           'id': that.upDateData.id,
           'name': that.upDateData.name,

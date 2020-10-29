@@ -155,7 +155,7 @@ export default {
   methods: {
     getAllCanteen() {
       var that = this
-      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+      axios.get(this.$store.state.canteenHeadUrl + 'GetAllCanteen').then(function(response) {
         that.allData = response.data
         that.tableData = response.data
         console.log(that.canteens)
@@ -164,7 +164,7 @@ export default {
       })
     },
     deleteCanteenById(id) {
-      axios.delete('http://localhost:8080/canteen/DeleteCanteenById/' + id).then(function(response) {
+      axios.delete(this.$store.state.canteenHeadUrl + 'DeleteCanteenById/' + id).then(function(response) {
         console.log(response.data)
       }).catch(function(error) {
         console.log(error)
@@ -174,7 +174,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/canteen/AddCanteen',
+        url: this.$store.state.canteenHeadUrl + 'AddCanteen',
         data: {
           'id': that.addData.id,
           'name': that.addData.name,
@@ -201,7 +201,7 @@ export default {
       var that = this
       axios({
         method: 'post',
-        url: 'http://localhost:8080/canteen/UpdateCanteen',
+        url: this.$store.state.canteenHeadUrl + 'UpdateCanteen',
         data: {
           'id': that.upDateData.id,
           'name': that.upDateData.name,

@@ -314,14 +314,7 @@ export default {
     },
     handleEdit(id, row) {
       var index = this.IndexOfId(id)
-      this.upDateData.id = this.tableData[index].id
-      this.upDateData.content = this.tableData[index].content
-      this.upDateData.user_id = this.tableData[index].user_id
-      this.upDateData.food_name = this.tableData[index].food_name
-      this.upDateData.canteen = this.tableData[index].canteen
-      this.upDateData.stars = this.tableData[index].stars
-      this.UpdatedialogVisible = true
-      console.log(this.upDateData)
+      this.upDateData = JSON.parse(JSON.stringify(this.tableData[index]))
     },
     commitEdit() {
       this.updateComment()

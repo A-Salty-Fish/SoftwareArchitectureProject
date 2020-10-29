@@ -250,10 +250,7 @@ export default {
     handleEdit(id, row) {
       this.UpdatedialogVisible = true
       var index = this.IndexOfId(id)
-      this.upDateData.id = this.tableData[index].id
-      this.upDateData.name = this.tableData[index].name
-      this.upDateData.position = this.tableData[index].position
-      console.log(this.upDateData)
+      this.upDateData = JSON.parse(JSON.stringify(this.tableData[index]))
     },
     commitEdit() {
       this.updateCanteen()

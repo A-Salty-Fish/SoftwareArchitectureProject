@@ -305,13 +305,7 @@ export default {
     handleEdit(id, row) {
       this.UpdatedialogVisible = true
       var index = this.IndexOfId(id)
-      this.upDateData.id = this.tableData[index].id
-      this.upDateData.name = this.tableData[index].name
-      this.upDateData.headimg_url = this.tableData[index].headimg_url
-      this.upDateData.faculty = this.tableData[index].faculty
-      this.upDateData.school_num = this.tableData[index].school_num
-      this.upDateData.author_level = this.tableData[index].author_level
-      console.log(this.upDateData)
+      this.upDateData = JSON.parse(JSON.stringify(this.tableData[index]))
     },
     commitEdit() {
       this.updateUser()

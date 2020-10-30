@@ -47,7 +47,16 @@
 ![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/comment.png?raw=true)
 
 ##后端API
-注:由于前端开发偷懒导致很多没用上
+###Swagger-UI:
+* 用户模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/userController.png?raw=true)
+* 食堂模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/canteenController.png?raw=true)
+* 食物模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/foodController.png?raw=true)
+* 评论模块
+![image](https://github.com/A-Salty-Fish/SoftwareArchitectureProject/blob/master/Image/commentController.png?raw=true)
+###Json：
 
 {
     

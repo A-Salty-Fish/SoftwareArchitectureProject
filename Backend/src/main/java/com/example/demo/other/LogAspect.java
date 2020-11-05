@@ -25,6 +25,8 @@ public class LogAspect {
     //可以通过JoinPoint取到aop的类名，方法参数，方法签名
     @After("execution(* com.example.demo.controller..*.*(..))")
     public void logAfter(JoinPoint joinPoint){
-        logger.info("after method log done "+joinPoint.getTarget().getClass()+",args="+ Arrays.asList(joinPoint.getArgs())+",method="+joinPoint.getSignature());
+        logger.info("after method log done\n"+
+                joinPoint.getTarget().getClass()+"\n,args="+
+                Arrays.asList(joinPoint.getArgs())+"\n,method="+joinPoint.getSignature());
     }
 }

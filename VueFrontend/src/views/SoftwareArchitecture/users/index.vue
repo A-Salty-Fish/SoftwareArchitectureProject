@@ -327,7 +327,7 @@ export default {
       that.currentPage = 1
       that.tableData = that.allData.filter(item => {
         return item.name.includes(that.addData.name) &&
-          item.author_level === that.addData.author_level &&
+          (item.author_level === that.addData.author_level || that.addData.author_level === that.author_levels[0]) &&
           item.faculty.includes(that.addData.faculty) &&
           item.school_num.includes(that.addData.school_num)
       })

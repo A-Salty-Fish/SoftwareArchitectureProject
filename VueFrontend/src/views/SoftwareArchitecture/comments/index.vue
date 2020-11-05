@@ -212,7 +212,7 @@ export default {
     },
     getAllCanteen() {
       var that = this
-      axios.get('http://localhost:8080/canteen/GetAllCanteen').then(function(response) {
+      axios.get(this.$store.state.canteenHeadUrl + 'GetAllCanteen').then(function(response) {
         that.canteens = response.data
         that.canteens.unshift({
           'name': ''
@@ -315,6 +315,7 @@ export default {
     handleEdit(id, row) {
       var index = this.IndexOfId(id)
       this.upDateData = JSON.parse(JSON.stringify(this.tableData[index]))
+      this.UpdatedialogVisible = true
     },
     commitEdit() {
       this.updateComment()
